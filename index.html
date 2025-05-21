@@ -90,12 +90,10 @@
       display: block;
     }
 
-    /* 关键改动：设置相对定位，方便子菜单右侧展开 */
     .dropdown-content > div {
       position: relative;
     }
 
-    /* 子菜单右侧展开 */
     .submenu-content {
       position: absolute;
       top: 0;
@@ -123,6 +121,7 @@
       border-top: 1px solid #eee;
       background-color: #fff;
       transition: background-color 0.2s ease;
+      white-space: nowrap;
     }
 
     .submenu-content a:hover {
@@ -219,8 +218,22 @@
             <a href="#">什么是GLP-1？</a>
           </div>
         </div>
-        <a href="#">常见误区</a>
-        <a href="#">必看前置内容</a>
+        <div>
+          <a href="javascript:void(0)" class="submenu-toggle" id="myth-toggle">常见误区</a>
+          <div class="submenu-content" id="myth-submenu">
+            <a href="#">为什么节食反而胖？</a>
+            <a href="#">熬夜真的让你吃不饱？</a>
+            <a href="#">有氧运动=最佳燃脂方式吗？</a>
+          </div>
+        </div>
+        <div>
+          <a href="javascript:void(0)" class="submenu-toggle" id="pre-toggle">必看前置内容</a>
+          <div class="submenu-content" id="pre-submenu">
+            <a href="#">减脂原理一图看懂</a>
+            <a href="#">激素调节对减脂的影响</a>
+            <a href="#">你该先调节激素还是先运动？</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -235,27 +248,52 @@
     const dropdownContent = document.getElementById('dropdown-content');
     const baseToggle = document.getElementById('base-toggle');
     const baseSubmenu = document.getElementById('base-submenu');
+    const mythToggle = document.getElementById('myth-toggle');
+    const mythSubmenu = document.getElementById('myth-submenu');
+    const preToggle = document.getElementById('pre-toggle');
+    const preSubmenu = document.getElementById('pre-submenu');
 
-    // 点击“激素减脂入门”按钮，切换一级菜单显示
     dropbtn.addEventListener('click', (e) => {
       e.stopPropagation();
       dropdownContent.classList.toggle('show');
-      baseSubmenu.classList.remove('show');
-      baseToggle.classList.remove('active');
+      [baseSubmenu, mythSubmenu, preSubmenu].forEach(sub => sub.classList.remove('show'));
+      [baseToggle, mythToggle, preToggle].forEach(t => t.classList.remove('active'));
     });
 
-    // 点击“基础科普”，切换子菜单显示
     baseToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       baseSubmenu.classList.toggle('show');
       baseToggle.classList.toggle('active');
+      mythSubmenu.classList.remove('show');
+      mythToggle.classList.remove('active');
+      preSubmenu.classList.remove('show');
+      preToggle.classList.remove('active');
     });
 
-    // 点击页面空白处，关闭所有菜单
-    document.addEventListener('click', () => {
-      dropdownContent.classList.remove('show');
+    mythToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mythSubmenu.classList.toggle('show');
+      mythToggle.classList.toggle('active');
       baseSubmenu.classList.remove('show');
       baseToggle.classList.remove('active');
+      preSubmenu.classList.remove('show');
+      preToggle.classList.remove('active');
+    });
+
+    preToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      preSubmenu.classList.toggle('show');
+      preToggle.classList.toggle('active');
+      baseSubmenu.classList.remove('show');
+      baseToggle.classList.remove('active');
+      mythSubmenu.classList.remove('show');
+      mythToggle.classList.remove('active');
+    });
+
+    document.addEventListener('click', () => {
+      dropdownContent.classList.remove('show');
+      [baseSubmenu, mythSubmenu, preSubmenu].forEach(sub => sub.classList.remove('show'));
+      [baseToggle, mythToggle, preToggle].forEach(t => t.classList.remove('active'));
     });
   </script>
 </body>

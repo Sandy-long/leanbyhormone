@@ -1,44 +1,89 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>激素减脂实验室</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: url("https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%87%8F%E8%82%A5%E9%A6%96%E9%A1%B5%E5%A4%B4%E5%9B%BE.jpg") no-repeat center center;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+
+    header {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 1.6em;
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.4); /* 半透明深灰 */
+      padding: 14px 24px;
+      border-radius: 16px;
+      white-space: nowrap;
+      color: #fff;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 16px;
+    }
+
+    .module-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.6); /* 半透明白 */
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 1em;
+      color: #222;
+      text-decoration: none;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    .module-button:hover {
+      transform: translateY(-3px);
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .module-button i {
+      margin-right: 8px;
+      color: #666; /* 统一灰色图标 */
+      font-size: 1.2em;
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-800 font-sans">
-  <!-- 顶部背景图 -->
-  <div class="relative h-64 w-full overflow-hidden">
-    <img
-      src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%87%8F%E8%82%A5%E9%A6%96%E9%A1%B5%E5%A4%B4%E5%9B%BE.jpg"
-      alt="激素减脂封面"
-      class="w-full h-full object-cover"
-    />
-  </div>
+<body>
+  <header>
+    激素减脂实验室 ｜科学减脂，从激素平衡开始
+  </header>
 
-  <!-- 标题区 -->
-  <div class="text-center px-4 py-8">
-    <h1 class="text-2xl md:text-3xl font-bold mb-2">
-      激素减脂实验室 ｜科学减脂，从激素平衡开始
-    </h1>
-  </div>
-
-  <!-- 五个模块按钮 -->
-  <div class="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 pb-8 text-center">
-    <a href="#" class="bg-gray-100 p-4 rounded-lg shadow hover:bg-gray-200 transition">
-      🧬<div class="mt-2 font-medium">激素减脂入门</div>
+  <div class="button-container">
+    <a href="#" class="module-button">
+      <i class="fas fa-dna"></i> 激素减脂入门
     </a>
-    <a href="#" class="bg-gray-100 p-4 rounded-lg shadow hover:bg-gray-200 transition">
-      🍽️<div class="mt-2 font-medium">饮食计划</div>
+    <a href="#" class="module-button">
+      <i class="fas fa-utensils"></i> 饮食计划
     </a>
-    <a href="#" class="bg-gray-100 p-4 rounded-lg shadow hover:bg-gray-200 transition">
-      🏃‍♀️<div class="mt-2 font-medium">睡眠+情绪+运动</div>
+    <a href="#" class="module-button">
+      <i class="fas fa-bed"></i> 睡眠＋情绪＋运动
     </a>
-    <a href="#" class="bg-gray-100 p-4 rounded-lg shadow hover:bg-gray-200 transition">
-      🛠️<div class="mt-2 font-medium">免费工具</div>
+    <a href="#" class="module-button">
+      <i class="fas fa-tools"></i> 免费工具
     </a>
-    <a href="#" class="bg-gray-100 p-4 rounded-lg shadow hover:bg-gray-200 transition">
-      📞<div class="mt-2 font-medium">联系我</div>
+    <a href="#" class="module-button">
+      <i class="fas fa-phone"></i> 联系我
     </a>
   </div>
 </body>

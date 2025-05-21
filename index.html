@@ -2,9 +2,9 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>激素减脂实验室</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
       margin: 0;
@@ -57,6 +57,7 @@
       backdrop-filter: blur(3px);
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
       transition: all 0.2s ease;
+      user-select: none;
     }
 
     .dropbtn i {
@@ -80,23 +81,98 @@
       z-index: 1;
       top: 110%;
       left: 0;
-      overflow: hidden;
+      overflow: visible;
+      color: #333;
+      padding: 0;
     }
 
-    .dropdown-content a {
+    .dropdown-content.show {
+      display: block;
+    }
+
+    /* 关键改动：设置相对定位，方便子菜单右侧展开 */
+    .dropdown-content > div {
+      position: relative;
+    }
+
+    /* 子菜单右侧展开 */
+    .submenu-content {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background-color: #fff;
+      display: none;
+      margin: 0;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .submenu-content.show {
+      display: block;
+    }
+
+    .submenu-content a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+      transition: background-color 0.2s ease;
+    }
+
+    .submenu-content a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .submenu-toggle {
+      display: block;
+      padding: 12px 18px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.95em;
+      color: #333;
+      position: relative;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      transition: background-color 0.2s ease;
+    }
+
+    .submenu-toggle:hover {
+      background-color: #f9f9f9;
+    }
+
+    .submenu-toggle::after {
+      content: "▸";
+      position: absolute;
+      right: 18px;
+      font-size: 1em;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+
+    .submenu-toggle.active::after {
+      transform: rotate(90deg);
+    }
+
+    .dropdown-content > a {
       color: #333;
       padding: 12px 18px;
       text-decoration: none;
       display: block;
       font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      transition: background-color 0.2s ease;
     }
 
-    .dropdown-content a:hover {
+    .dropdown-content > a:hover {
       background-color: #f0f0f0;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
     }
 
     .module-button {
@@ -131,10 +207,18 @@
   </header>
 
   <nav>
-    <div class="dropdown">
-      <button class="dropbtn"><i class="fas fa-dna"></i> 激素减脂入门</button>
-      <div class="dropdown-content">
-        <a href="#">基础科普</a>
+    <div class="dropdown" id="hormone-dropdown">
+      <button class="dropbtn" id="dropbtn"><i class="fas fa-dna"></i> 激素减脂入门</button>
+      <div class="dropdown-content" id="dropdown-content">
+        <div>
+          <a href="javascript:void(0)" class="submenu-toggle" id="base-toggle">基础科普</a>
+          <div class="submenu-content" id="base-submenu">
+            <a href="#">什么是瘦素？</a>
+            <a href="#">什么是胰岛素？</a>
+            <a href="#">什么是皮质醇？</a>
+            <a href="#">什么是GLP-1？</a>
+          </div>
+        </div>
         <a href="#">常见误区</a>
         <a href="#">必看前置内容</a>
       </div>
@@ -145,5 +229,34 @@
     <a href="#" class="module-button"><i class="fas fa-tools"></i> 免费工具</a>
     <a href="#" class="module-button"><i class="fas fa-phone"></i> 联系我</a>
   </nav>
+
+  <script>
+    const dropbtn = document.getElementById('dropbtn');
+    const dropdownContent = document.getElementById('dropdown-content');
+    const baseToggle = document.getElementById('base-toggle');
+    const baseSubmenu = document.getElementById('base-submenu');
+
+    // 点击“激素减脂入门”按钮，切换一级菜单显示
+    dropbtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownContent.classList.toggle('show');
+      baseSubmenu.classList.remove('show');
+      baseToggle.classList.remove('active');
+    });
+
+    // 点击“基础科普”，切换子菜单显示
+    baseToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      baseSubmenu.classList.toggle('show');
+      baseToggle.classList.toggle('active');
+    });
+
+    // 点击页面空白处，关闭所有菜单
+    document.addEventListener('click', () => {
+      dropdownContent.classList.remove('show');
+      baseSubmenu.classList.remove('show');
+      baseToggle.classList.remove('active');
+    });
+  </script>
 </body>
 </html>

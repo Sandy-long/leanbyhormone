@@ -1,319 +1,362 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>激素减脂实验室</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<style>
-  body {
-    margin: 0;
-    font-family: "Arial", sans-serif;
-    background: url("https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%87%8F%E8%82%A5%E9%A6%96%E9%A1%B5%E5%A4%B4%E5%9B%BE.jpg") no-repeat center center;
-    background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #fff;
-  }
-  header {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 1.6em;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 14px 24px;
-    border-radius: 16px;
-    white-space: nowrap;
-    color: #fff;
-  }
-  nav {
-    margin-top: 40px;
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    z-index: 1000; /* 最高层级，确保菜单显示 */
-  }
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  .dropbtn {
-    background-color: rgba(255,255,255,0.6);
-    border: none;
-    padding: 10px 18px;
-    font-size: 1em;
-    border-radius: 12px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    color: #222;
-    backdrop-filter: blur(3px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-    user-select: none;
-  }
-  .dropbtn i {
-    margin-right: 8px;
-    color: #666;
-    font-size: 1.2em;
-  }
-  .dropbtn:hover {
-    background-color: rgba(255,255,255,0.8);
-    transform: translateY(-3px);
-  }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 220px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 2000;
-    top: 110%;
-    left: 0;
-    color: #333;
-    padding: 0;
-  }
-  .dropdown-content.show {
-    display: block;
-  }
-  .dropdown-content > div {
-    position: relative;
-  }
-  .submenu-content {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    min-width: 220px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    background-color: #fff;
-    display: none;
-    z-index: 3000;
-  }
-  .submenu-content.show {
-    display: block;
-  }
-  .dropdown-content > a,
-  .submenu-content a,
-  .submenu-toggle {
-    display: block;
-    padding: 12px 18px;
-    text-decoration: none;
-    color: #333;
-    font-size: 0.95em;
-    border-bottom: 1px solid #eee;
-    background-color: #fff;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.2s ease;
-    user-select: none;
-  }
-  .dropdown-content > a:hover,
-  .submenu-content a:hover,
-  .submenu-toggle:hover {
-    background-color: #f0f0f0;
-  }
-  .submenu-toggle {
-    position: relative;
-  }
-  .submenu-toggle::after {
-    content: "▸";
-    position: absolute;
-    right: 18px;
-    font-size: 1em;
-    color: #666;
-    transition: transform 0.3s ease;
-  }
-  .submenu-toggle.active::after {
-    transform: rotate(90deg);
-  }
-  .module-button {
-    display: inline-flex;
-    align-items: center;
-    background-color: rgba(255,255,255,0.6);
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-size: 1em;
-    color: #222;
-    text-decoration: none;
-    backdrop-filter: blur(3px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-  }
-  .module-button i {
-    margin-right: 8px;
-    color: #666;
-    font-size: 1.2em;
-  }
-  .module-button:hover {
-    transform: translateY(-3px);
-    background-color: rgba(255,255,255,0.8);
-  }
-  section.image-showcase {
-    margin-top: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 40px 20px;
-    z-index: 1;
-  }
-  section.image-showcase img {
-    max-width: 280px;
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  }
-  footer#footer {
-    margin-top: auto;
-    padding: 12px 0;
-    text-align: center;
-    color: #fff;
-    background-color: rgba(0,0,0,0.4);
-    font-size: 0.9em;
-    width: 100%;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>激素减脂实验室</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: url("https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%87%8F%E8%82%A5%E9%A6%96%E9%A1%B5%E5%A4%B4%E5%9B%BE.jpg") no-repeat center center;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+    }
+    header {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 1.6em;
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 14px 24px;
+      border-radius: 16px;
+      white-space: nowrap;
+      color: #fff;
+    }
+    nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1000;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropbtn {
+      background-color: rgba(255,255,255,0.6);
+      border: none;
+      padding: 10px 18px;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      color: #222;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .dropbtn i {
+      margin-right: 8px;
+      color: #666;
+      font-size: 1.2em;
+    }
+    .dropbtn:hover {
+      background-color: rgba(255,255,255,0.8);
+      transform: translateY(-3px);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 2000;
+      top: 110%;
+      left: 0;
+      color: #333;
+      padding: 0;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .dropdown-content > a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+      user-select: none;
+    }
+    .dropdown-content > a:hover {
+      background-color: #f0f0f0;
+    }
+    .submenu-toggle {
+      position: relative;
+      padding: 12px 18px;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .submenu-toggle::after {
+      content: "▸";
+      position: absolute;
+      right: 18px;
+      font-size: 1em;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+    .submenu-toggle.active::after {
+      transform: rotate(90deg);
+    }
+    .submenu-content {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background-color: #fff;
+      display: none;
+      z-index: 3000;
+    }
+    .submenu-content.show {
+      display: block;
+    }
+    .submenu-content a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+    }
+    .submenu-content a:hover {
+      background-color: #f0f0f0;
+    }
+    .module-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(255,255,255,0.6);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 1em;
+      color: #222;
+      text-decoration: none;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .module-button i {
+      margin-right: 8px;
+      color: #666;
+      font-size: 1.2em;
+    }
+    .module-button:hover {
+      transform: translateY(-3px);
+      background-color: rgba(255,255,255,0.8);
+    }
+    section.image-showcase {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px 20px;
+      z-index: 1;
+    }
+    section.image-showcase img {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    footer#footer {
+      margin-top: auto;
+      padding: 12px 0;
+      text-align: center;
+      color: #fff;
+      background-color: rgba(0,0,0,0.4);
+      font-size: 0.9em;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-<header>激素减脂实验室 ｜科学减脂，从激素平衡开始</header>
+  <header>激素减脂实验室 ｜科学减脂，从激素平衡开始</header>
 
-<nav>
-  <div class="dropdown" id="hormone-dropdown">
-    <button class="dropbtn" id="dropbtn"><i class="fas fa-dna"></i> 激素减脂入门</button>
-    <div class="dropdown-content" id="dropdown-content">
-      <div>
-        <div class="submenu-toggle" id="base-toggle">基础科普</div>
-        <div class="submenu-content" id="base-submenu">
-          <a href="#">饱腹激素（瘦素）</a>
-          <a href="#">储脂激素（胰岛素）</a>
-          <a href="#">压力激素（皮质醇）</a>
-          <a href="#">燃脂激素（胰高血糖素）</a>
-          <a href="#">夜间修复与燃脂（生长激素）</a>
-          <a href="#">什么是GLP-1？</a>
+  <nav>
+    <div class="dropdown" id="hormone-dropdown">
+      <button class="dropbtn" id="dropbtn"><i class="fas fa-dna"></i> 激素减脂入门</button>
+      <div class="dropdown-content" id="dropdown-content">
+        <div><div class="submenu-toggle" id="base-toggle">基础科普</div>
+          <div class="submenu-content" id="base-submenu">
+            <a href="#">饱腹激素（瘦素）</a>
+            <a href="#">储脂激素（胰岛素）</a>
+            <a href="#">压力激素（皮质醇）</a>
+            <a href="#">燃脂激素（胰高血糖素）</a>
+            <a href="#">夜间修复与燃脂（生长激素）</a>
+            <a href="#">什么是GLP-1？</a>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="submenu-toggle" id="myth-toggle">常见误区</div>
-        <div class="submenu-content" id="myth-submenu">
-          <a href="#">为什么节食反而胖？</a>
-          <a href="#">熬夜真的让你吃不饱？</a>
-          <a href="#">有氧运动=最佳燃脂方式吗？</a>
+        <div><div class="submenu-toggle" id="myth-toggle">常见误区</div>
+          <div class="submenu-content" id="myth-submenu">
+            <a href="#">为什么节食反而胖？</a>
+            <a href="#">熬夜真的让你吃不饱？</a>
+            <a href="#">有氧运动=最佳燃脂方式吗？</a>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="submenu-toggle" id="pre-toggle">必看前置内容</div>
-        <div class="submenu-content" id="pre-submenu">
-          <a href="#">减脂原理一图看懂</a>
-          <a href="#">激素调节对减脂的影响</a>
-          <a href="#">你该先调节激素还是先运动？</a>
-          <a href="#">激活燃脂激素</a>
-          <a href="#">告别暴食</a>
-          <a href="#">支持瘦素和代谢</a>
-          <a href="#">调节皮质醇</a>
-          <a href="#">控制胰岛素</a>
+        <div><div class="submenu-toggle" id="pre-toggle">必看前置内容</div>
+          <div class="submenu-content" id="pre-submenu">
+            <a href="#">减脂原理一图看懂</a>
+            <a href="#">激素调节对减脂的影响</a>
+            <a href="#">你该先调节激素还是先运动？</a>
+            <a href="#">激活燃脂激素</a>
+            <a href="#">告别暴食</a>
+            <a href="#">支持瘦素和代谢</a>
+            <a href="#">调节皮质醇</a>
+            <a href="#">控制胰岛素</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="dropdown" id="diet-dropdown">
-    <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>
-    <div class="dropdown-content" id="diet-submenu">
-      <a href="#">饱腹感饮食</a>
-      <a href="#">轻断食</a>
-      <a href="#">“不节食也能瘦”的饮食原则</a>
-      <a href="#">GLP-1激活食物清单</a>
-      <a href="#">一日三餐示范（图文形式）</a>
+    <div class="dropdown" id="diet-dropdown">
+      <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>
+      <div class="dropdown-content" id="diet-submenu">
+        <a href="#">饱腹感饮食</a>
+        <a href="#">轻断食</a>
+        <a href="#">“不节食也能瘦”的饮食原则</a>
+        <a href="#">GLP-1激活食物清单</a>
+        <a href="#">一日三餐示范（图文形式）</a>
+      </div>
     </div>
-  </div>
 
-  <a href="#" class="module-button"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</a>
-  <a href="#" class="module-button"><i class="fas fa-tools"></i> 免费工具</a>
-  <a href="#" class="module-button"><i class="fas fa-phone"></i> 联系我</a>
-</nav>
+    <div class="dropdown" id="lifestyle-dropdown">
+      <button class="dropbtn"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</button>
+      <div class="dropdown-content" id="lifestyle-submenu">
+        <a href="#">睡眠质量对减脂的影响</a>
+        <a href="#">情绪性进食与激素波动</a>
+        <a href="#">适合激素紊乱人群的运动</a>
+      </div>
+    </div>
 
-<section class="image-showcase">
-  <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%9A%E5%9B%8A.jpg" alt="多囊" />
-  <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%A7%E8%82%9A%E5%AD%90.jpg" alt="大肚子" />
-  <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E7%97%9B%E9%A3%8E.jpg" alt="痛风" />
-</section>
+    <div class="dropdown" id="tools-dropdown">
+      <button class="dropbtn"><i class="fas fa-tools"></i> 免费工具</button>
+      <div class="dropdown-content" id="tools-submenu">
+        <a href="#">一周激素平衡饮食计划（PDF）</a>
+        <a href="#">代谢/胰岛素/瘦素测试表（Notion）</a>
+        <a href="#">高饱腹感食物列表</a>
+      </div>
+    </div>
 
-<footer id="footer">
-   © <span id="year"></span> 激素减脂实验室. 版权所有
-</footer>
+    <a href="#" class="module-button"><i class="fas fa-phone"></i> 联系我</a>
+  </nav>
 
-<script>
-  // 获取元素
-  const dropbtn = document.getElementById('dropbtn');
-  const dropdownContent = document.getElementById('dropdown-content');
-  const dietBtn = document.getElementById('diet-btn');
-  const dietSubmenu = document.getElementById('diet-submenu');
+  <section class="image-showcase">
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%9A%E5%9B%8A.jpg" alt="多囊" />
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%A7%E8%82%9A%E5%AD%90.jpg" alt="大肚子" />
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E7%97%9B%E9%A3%8E.jpg" alt="痛风" />
+  </section>
 
-  const baseToggle = document.getElementById('base-toggle');
-  const baseSubmenu = document.getElementById('base-submenu');
+  <footer id="footer">
+    © <span id="year"></span> 激素减脂实验室. 版权所有
+  </footer>
 
-  const mythToggle = document.getElementById('myth-toggle');
-  const mythSubmenu = document.getElementById('myth-submenu');
+  <script>
+    const dropbtn = document.getElementById('dropbtn');
+    const dropdownContent = document.getElementById('dropdown-content');
+    const dietBtn = document.getElementById('diet-btn');
+    const dietSubmenu = document.getElementById('diet-submenu');
+    const baseToggle = document.getElementById('base-toggle');
+    const baseSubmenu = document.getElementById('base-submenu');
+    const mythToggle = document.getElementById('myth-toggle');
+    const mythSubmenu = document.getElementById('myth-submenu');
+    const preToggle = document.getElementById('pre-toggle');
+    const preSubmenu = document.getElementById('pre-submenu');
 
-  const preToggle = document.getElementById('pre-toggle');
-  const preSubmenu = document.getElementById('pre-submenu');
+    const lifestyleBtn = document.querySelector('#lifestyle-dropdown .dropbtn');
+    const lifestyleSubmenu = document.getElementById('lifestyle-submenu');
+    const toolsBtn = document.querySelector('#tools-dropdown .dropbtn');
+    const toolsSubmenu = document.getElementById('tools-submenu');
 
-  // 切换主菜单“激素减脂入门”
-  dropbtn.addEventListener('click', e => {
-    e.stopPropagation();
-    dropdownContent.classList.toggle('show');
-    dietSubmenu.classList.remove('show');
-    // 收起所有子菜单
-    closeAllSubmenus();
-  });
-
-  // 切换主菜单“饮食计划”
-  dietBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    dietSubmenu.classList.toggle('show');
-    dropdownContent.classList.remove('show');
-    closeAllSubmenus();
-  });
-
-  // 收起所有子菜单函数
-  function closeAllSubmenus(){
-    [baseSubmenu, mythSubmenu, preSubmenu].forEach(menu => menu.classList.remove('show'));
-    [baseToggle, mythToggle, preToggle].forEach(toggle => toggle.classList.remove('active'));
-  }
-
-  // 子菜单切换函数
-  function toggleSubmenu(toggleBtn, submenu){
-    toggleBtn.addEventListener('click', e => {
+    dropbtn.addEventListener('click', e => {
       e.stopPropagation();
-      const isActive = submenu.classList.contains('show');
+      dropdownContent.classList.toggle('show');
+      dietSubmenu.classList.remove('show');
+      lifestyleSubmenu.classList.remove('show');
+      toolsSubmenu.classList.remove('show');
       closeAllSubmenus();
-      if(!isActive){
-        submenu.classList.add('show');
-        toggleBtn.classList.add('active');
-      }
     });
-  }
 
-  toggleSubmenu(baseToggle, baseSubmenu);
-  toggleSubmenu(mythToggle, mythSubmenu);
-  toggleSubmenu(preToggle, preSubmenu);
+    dietBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      dietSubmenu.classList.toggle('show');
+      dropdownContent.classList.remove('show');
+      lifestyleSubmenu.classList.remove('show');
+      toolsSubmenu.classList.remove('show');
+      closeAllSubmenus();
+    });
 
-  // 点击页面空白处收起菜单
-  document.addEventListener('click', () => {
-    dropdownContent.classList.remove('show');
-    dietSubmenu.classList.remove('show');
-    closeAllSubmenus();
-  });
+    lifestyleBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      lifestyleSubmenu.classList.toggle('show');
+      dropdownContent.classList.remove('show');
+      dietSubmenu.classList.remove('show');
+      toolsSubmenu.classList.remove('show');
+      closeAllSubmenus();
+    });
 
-  // 设置版权年份为当前年份
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+    toolsBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      toolsSubmenu.classList.toggle('show');
+      dropdownContent.classList.remove('show');
+      dietSubmenu.classList.remove('show');
+      lifestyleSubmenu.classList.remove('show');
+      closeAllSubmenus();
+    });
+
+    function closeAllSubmenus(){
+      [baseSubmenu, mythSubmenu, preSubmenu].forEach(menu => menu.classList.remove('show'));
+      [baseToggle, mythToggle, preToggle].forEach(toggle => toggle.classList.remove('active'));
+    }
+
+    function toggleSubmenu(toggleBtn, submenu){
+      toggleBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const isActive = submenu.classList.contains('show');
+        closeAllSubmenus();
+        if(!isActive){
+          submenu.classList.add('show');
+          toggleBtn.classList.add('active');
+        }
+      });
+    }
+
+    toggleSubmenu(baseToggle, baseSubmenu);
+    toggleSubmenu(mythToggle, mythSubmenu);
+    toggleSubmenu(preToggle, preSubmenu);
+
+    document.addEventListener('click', () => {
+      dropdownContent.classList.remove('show');
+      dietSubmenu.classList.remove('show');
+      lifestyleSubmenu.classList.remove('show');
+      toolsSubmenu.classList.remove('show');
+      closeAllSubmenus();
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

@@ -170,6 +170,15 @@
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
+  footer#footer {
+    margin-top: auto;
+    padding: 12px 0;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+    font-size: 0.9em;
+    width: 100%;
+  }
 </style>
 </head>
 <body>
@@ -236,6 +245,10 @@
   <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E7%97%9B%E9%A3%8E.jpg" alt="痛风" />
 </section>
 
+<footer id="footer">
+   © <span id="year"></span> 激素减脂实验室. 版权所有
+</footer>
+
 <script>
   // 获取元素
   const dropbtn = document.getElementById('dropbtn');
@@ -298,6 +311,9 @@
     dietSubmenu.classList.remove('show');
     closeAllSubmenus();
   });
+
+  // 设置版权年份为当前年份
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>

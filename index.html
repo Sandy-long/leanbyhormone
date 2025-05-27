@@ -6,6 +6,32 @@
   <title>激素减脂实验室</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
+  <!-- Modal for Enlarged Image -->
+<div id="imageModal" style="
+  display:none; 
+  position:fixed; 
+  z-index:9999; 
+  left:0; top:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content:center; 
+  align-items:center;
+">
+  <img id="modalImage" style="max-width:90%; max-height:90%; border-radius:16px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+</div>
+
+<script>
+  function openImageModal(src) {
+    const modal = document.getElementById('imageModal');
+    const img = document.getElementById('modalImage');
+    img.src = src;
+    modal.style.display = 'flex';
+  }
+
+  document.getElementById('imageModal').addEventListener('click', function() {
+    this.style.display = 'none';
+  });
+</script>
+
     body {
       margin: 0;
       font-family: "Arial", sans-serif;
@@ -269,7 +295,14 @@
 
   <section class="image-showcase">
     <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%9A%E5%9B%8A.jpg" alt="多囊" />
-    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%A7%E8%82%9A%E5%AD%90.jpg" alt="大肚子" />
+    <a href="https://sandy-long.github.io/lean-yddkfat/" target="_blank">
+  <img 
+    src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%A7%E8%82%9A%E5%AD%90.jpg" 
+    alt="大肚子"
+    onclick="openImageModal(this.src)" 
+    style="cursor: zoom-in;" 
+  />
+</a>
     <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E7%97%9B%E9%A3%8E.jpg" alt="痛风" />
   </section>
 

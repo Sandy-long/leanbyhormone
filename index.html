@@ -275,19 +275,26 @@
   </div> 
 </div> 
     <div class="dropdown" id="diet-dropdown">
-      <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>
-      <div class="dropdown-content" id="diet-submenu">
-	  <a href="https://github.com/Sandy-long/lean-protein/raw/main/蛋白质的重要性.pdf" target="_blank">蛋白质的重要性</a>
+  <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>   
+  <div class="dropdown-content" id="diet-submenu">
+    <!-- 修改后的营养食物下拉菜单 -->
+    <div class="dropdown">
+      <div class="submenu-toggle" id="nutrition-toggle">营养食物</div>
+      <div class="submenu-content" id="nutrition-submenu">
+        <a href="https://github.com/Sandy-long/lean-protein/raw/main/蛋白质的重要性.pdf" target="_blank">蛋白质的重要性</a>
         <a href="#">饱腹感饮食</a>
-<a href="https://sandy-long.github.io/lean-Inflamed-food/" target="_blank">常见发炎食物</a>
-<a href=" https://sandy-long.github.io/lean-OMAD/" target="_blank">每日一餐指南</a>
-	     
-        <a href="#">轻断食</a>
-        <a href="#">“不节食也能瘦”的饮食原则</a>
-        <a href="#">GLP-1激活食物清单</a>
-        <a href="#">一日三餐示范（图文形式）</a>
+        <a href="https://sandy-long.github.io/lean-Inflamed-food/" target="_blank">常见发炎食物</a>
       </div>
     </div>
+
+    <!-- 其他直接链接 -->
+    <a href="https://sandy-long.github.io/lean-OMAD/" target="_blank">每日一餐指南</a>
+    <a href="#">轻断食</a>
+    <a href="#">"不节食也能瘦"的饮食原则</a>
+    <a href="#">GLP-1激活食物清单</a>
+    <a href="#">一日三餐示范（图文形式）</a>
+  </div>
+</div>
 
     <div class="dropdown" id="lifestyle-dropdown">
       <button class="dropbtn"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</button>
@@ -328,88 +335,90 @@
   </footer>
 
   <script>
-    const dropbtn = document.getElementById('dropbtn');
-    const dropdownContent = document.getElementById('dropdown-content');
-    const dietBtn = document.getElementById('diet-btn');
-    const dietSubmenu = document.getElementById('diet-submenu');
-    const baseToggle = document.getElementById('base-toggle');
-    const baseSubmenu = document.getElementById('base-submenu');
-    const mythToggle = document.getElementById('myth-toggle');
-    const mythSubmenu = document.getElementById('myth-submenu');
-    const preToggle = document.getElementById('pre-toggle');
-    const preSubmenu = document.getElementById('pre-submenu');
+ const dropbtn = document.getElementById('dropbtn');
+  const dropdownContent = document.getElementById('dropdown-content');
+  const dietBtn = document.getElementById('diet-btn');
+  const dietSubmenu = document.getElementById('diet-submenu');
+  const baseToggle = document.getElementById('base-toggle');
+  const baseSubmenu = document.getElementById('base-submenu');
+  const mythToggle = document.getElementById('myth-toggle');
+  const mythSubmenu = document.getElementById('myth-submenu');
+  const preToggle = document.getElementById('pre-toggle');
+  const preSubmenu = document.getElementById('pre-submenu');
+  const nutritionToggle = document.getElementById('nutrition-toggle');
+  const nutritionSubmenu = document.getElementById('nutrition-submenu');
+  const lifestyleBtn = document.querySelector('#lifestyle-dropdown .dropbtn');
+  const lifestyleSubmenu = document.getElementById('lifestyle-submenu');
+  const toolsBtn = document.querySelector('#tools-dropdown .dropbtn');
+  const toolsSubmenu = document.getElementById('tools-submenu');
 
-    const lifestyleBtn = document.querySelector('#lifestyle-dropdown .dropbtn');
-    const lifestyleSubmenu = document.getElementById('lifestyle-submenu');
-    const toolsBtn = document.querySelector('#tools-dropdown .dropbtn');
-    const toolsSubmenu = document.getElementById('tools-submenu');
+  dropbtn.addEventListener('click', e => {
+    e.stopPropagation();
+    dropdownContent.classList.toggle('show');
+    dietSubmenu.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
 
-    dropbtn.addEventListener('click', e => {
+  dietBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    dietSubmenu.classList.toggle('show');
+    dropdownContent.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  lifestyleBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    lifestyleSubmenu.classList.toggle('show');
+    dropdownContent.classList.remove('show');
+    dietSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  toolsBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    toolsSubmenu.classList.toggle('show');
+    dropdownContent.classList.remove('show');
+    dietSubmenu.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  function closeAllSubmenus(){
+    [baseSubmenu, mythSubmenu, preSubmenu, nutritionSubmenu].forEach(menu => menu.classList.remove('show'));
+    [baseToggle, mythToggle, preToggle, nutritionToggle].forEach(toggle => toggle.classList.remove('active'));
+  }
+
+  function toggleSubmenu(toggleBtn, submenu){
+    toggleBtn.addEventListener('click', e => {
       e.stopPropagation();
-      dropdownContent.classList.toggle('show');
-      dietSubmenu.classList.remove('show');
-      lifestyleSubmenu.classList.remove('show');
-      toolsSubmenu.classList.remove('show');
+      const isActive = submenu.classList.contains('show');
       closeAllSubmenus();
+      if(!isActive){
+        submenu.classList.add('show');
+        toggleBtn.classList.add('active');
+      }
     });
+  }
 
-    dietBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      dietSubmenu.classList.toggle('show');
-      dropdownContent.classList.remove('show');
-      lifestyleSubmenu.classList.remove('show');
-      toolsSubmenu.classList.remove('show');
-      closeAllSubmenus();
-    });
+  toggleSubmenu(nutritionToggle, nutritionSubmenu);  
+  toggleSubmenu(baseToggle, baseSubmenu);
+  toggleSubmenu(mythToggle, mythSubmenu);
+  toggleSubmenu(preToggle, preSubmenu);
 
-    lifestyleBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      lifestyleSubmenu.classList.toggle('show');
-      dropdownContent.classList.remove('show');
-      dietSubmenu.classList.remove('show');
-      toolsSubmenu.classList.remove('show');
-      closeAllSubmenus();
-    });
+  document.addEventListener('click', () => {
+    dropdownContent.classList.remove('show');
+    dietSubmenu.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
 
-    toolsBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      toolsSubmenu.classList.toggle('show');
-      dropdownContent.classList.remove('show');
-      dietSubmenu.classList.remove('show');
-      lifestyleSubmenu.classList.remove('show');
-      closeAllSubmenus();
-    });
-
-    function closeAllSubmenus(){
-      [baseSubmenu, mythSubmenu, preSubmenu].forEach(menu => menu.classList.remove('show'));
-      [baseToggle, mythToggle, preToggle].forEach(toggle => toggle.classList.remove('active'));
-    }
-
-    function toggleSubmenu(toggleBtn, submenu){
-      toggleBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        const isActive = submenu.classList.contains('show');
-        closeAllSubmenus();
-        if(!isActive){
-          submenu.classList.add('show');
-          toggleBtn.classList.add('active');
-        }
-      });
-    }
-
-    toggleSubmenu(baseToggle, baseSubmenu);
-    toggleSubmenu(mythToggle, mythSubmenu);
-    toggleSubmenu(preToggle, preSubmenu);
-
-    document.addEventListener('click', () => {
-      dropdownContent.classList.remove('show');
-      dietSubmenu.classList.remove('show');
-      lifestyleSubmenu.classList.remove('show');
-      toolsSubmenu.classList.remove('show');
-      closeAllSubmenus();
-    });
-
-    document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

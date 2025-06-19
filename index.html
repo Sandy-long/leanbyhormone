@@ -2,505 +2,458 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <title>优质碳水总览表</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>激素排毒俱乐部</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
+  <!-- Modal for Enlarged Image -->
+<div id="imageModal" style="
+  display:none; 
+  position:fixed; 
+  z-index:9999; 
+  left:0; top:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content:center; 
+  align-items:center;
+">
+  <img id="modalImage" style="max-width:90%; max-height:90%; border-radius:16px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);" />
+</div>
+
+<script>
+  function openImageModal(src) {
+    const modal = document.getElementById('imageModal');
+    const img = document.getElementById('modalImage');
+    img.src = src;
+    modal.style.display = 'flex';
+  }
+
+  document.getElementById('imageModal').addEventListener('click', function() {
+    this.style.display = 'none';
+  });
+</script>
+
     body {
-      font-family: "Helvetica Neue", sans-serif;
-      background: #f9f9f9;
-      padding: 2rem;
-      color: #333;
-      max-width: 1500px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-    table {
-    border-collapse: collapse;
-    font-size: 13px;
-    margin: 0 auto;
-    max-width: 900px;
-    table-layout: auto;
-  }
-  th, td {
-    border: 1px solid #ccc;
-    padding: 0.4rem 0.8rem;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-  }
-    th {
-      background: #f0f0f0;
-      font-weight: 600;
-    }
-    tr:nth-child(even) {
-      background: #fcfcfc;
-    }
-    .category-cell {
-      font-weight: bold;
-      background: #e0e0e0;
-      width: 90px;
-      white-space: normal;
-      word-break: break-word;
-    }
-
-    /* 膳食纤维颜色，仅高为绿色，其他黑色 */
-    .fiber-high {
-      color: #2e7d32; /* 绿色 */
-      font-weight: bold;
-    }
-    .fiber-medium,
-    .fiber-low,
-    .fiber-extreme-low {
-      color: #000000; /* 黑色 */
-      font-weight: normal;
-    }
-
-    /* GI值和果糖含量颜色 */
-    .gi-fructose-low {
-      color: #2e7d32; /* 绿色 */
-      font-weight: bold;
-    }
-    .gi-fructose-medium {
-      color: #ef6c00; /* 橙色 */
-      font-weight: bold;
-    }
-    .gi-fructose-high {
-      color: #c62828; /* 红色 */
-      font-weight: bold;
-    }
-
-    /* 备注样式 */
-   .notes {
-      max-width: 800px;
-      margin: 2rem 0 0;
-      font-size: 12px;
-      color: #555;
-      line-height: 1.4;
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 1rem 1.2rem;
-      border-radius: 6px;
-    }
-
-    /* 参考文献样式 */
-  .references {
-    max-width: 900px;
-    margin: 2rem auto 3rem;
-    padding: 1.2rem;
-    
-   
- 
-    line-height: 1.6;
-    
-    font-size: 16px;
-    color: #444;
-  }
-    .references strong {
-      display: block;
-      margin-bottom: 0.8rem;
-      font-size: 1.15rem;
-      color: #222;
-      border-bottom: 2px solid #2e7d32;
-      padding-bottom: 0.3rem;
-    }
-    .references ol {
-      padding-left: 1.2rem;
       margin: 0;
+  font-family: "Arial", sans-serif;
+  background: url("https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%87%8F%E8%82%A5%E9%A6%96%E9%A1%B5%E5%A4%B4%E5%9B%BE.jpg") no-repeat center center;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; <-- 去掉它 */
+  color: #fff;
+}
+    header {
+  margin: 0; /* 去掉所有外边距 */
+  padding: 16px 0; /* 仅上下留内边距，左右不留白 */
+  width: 100%; /* 让它充满横向空间 */
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0; /* 去掉圆角 */
+  white-space: nowrap;
+  color: #fff;
+  box-sizing: border-box; /* 避免内边距撑破宽度 */
+}
+    nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1000;
     }
-    .references ol li {
-      margin-bottom: 0.7rem;
-      text-align: justify;
-      text-justify: distribute;
+    .dropdown {
+      position: relative;
+      display: inline-block;
     }
-	/* 针对每日碳水摄入量建议表格的样式 */
-  table.carb-intake-table {
-    margin-left: 0 !important;  /* 靠左对齐 */
-    margin-top: 1rem;           /* 距离备注内容一定间距 */
-    margin-bottom: 2rem;
-    max-width: 700px;
-    border-collapse: collapse;
-    font-size: 13px;
-    table-layout: auto;
-  }
-  table.carb-intake-table th,
-  table.carb-intake-table td {
-    border: 1px solid #ccc;
-    padding: 0.4rem 0.8rem;
-    text-align: center;
-    vertical-align: middle;
-  }
-  table.carb-intake-table th {
-    background: #f0f0f0;
-    font-weight: 600;
-    color: #2e7d32;
-  }
+    .dropbtn {
+      background-color: rgba(255,255,255,0.6);
+      border: none;
+      padding: 10px 18px;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      color: #222;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .dropbtn i {
+      margin-right: 8px;
+      color: #666;
+      font-size: 1.2em;
+    }
+    .dropbtn:hover {
+      background-color: rgba(255,255,255,0.8);
+      transform: translateY(-3px);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 2000;
+      top: 110%;
+      left: 0;
+      color: #333;
+      padding: 0;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .dropdown-content > a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+      user-select: none;
+    }
+    .dropdown-content > a:hover {
+      background-color: #f0f0f0;
+    }
+    .submenu-toggle {
+      position: relative;
+      padding: 12px 18px;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .submenu-toggle::after {
+      content: "▸";
+      position: absolute;
+      right: 18px;
+      font-size: 1em;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+    .submenu-toggle.active::after {
+      transform: rotate(90deg);
+    }
+    .submenu-content {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background-color: #fff;
+      display: none;
+      z-index: 3000;
+    }
+    .submenu-content.show {
+      display: block;
+    }
+    .submenu-content a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+    }
+    .submenu-content a:hover {
+      background-color: #f0f0f0;
+    }
+    .module-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(255,255,255,0.6);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 1em;
+      color: #222;
+      text-decoration: none;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .module-button i {
+      margin-right: 8px;
+      color: #666;
+      font-size: 1.2em;
+    }
+    .module-button:hover {
+      transform: translateY(-3px);
+      background-color: rgba(255,255,255,0.8);
+    }
+    section.image-showcase {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px 20px;
+      z-index: 1;
+    }
+    section.image-showcase img {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    footer#footer {
+      margin-top: auto;
+      padding: 12px 0;
+      text-align: center;
+      color: #fff;
+      background-color: rgba(0,0,0,0.4);
+      font-size: 0.9em;
+      width: 100%;
+    }
+	.submenu-arrow {
+  margin-left: 8px;
+  font-size: 0.9em;
+  color: #666; /* 与文字颜色区分 */
+  float: right; /* 确保箭头始终在右侧 */
+}
+.submenu-toggle.active .submenu-arrow {
+  transform: none;
+}
+
+/* 子菜单图标统一间距 */
+.dropdown-content a i {
+  width: 20px;
+  text-align: center;
+  margin-right: 8px;
+  color: #6c5ce7;
+}
   </style>
 </head>
 <body>
-  <h1>优质碳水总览表</h1>
-  
-  <table>
-    <thead>
-      <tr>
-        <th>分类</th>
-        <th>食物名称</th>
-        <th>膳食纤维（g/100g）</th>
-        <th>GI值<br> （身体对食物血糖反应/葡萄糖反应）</th>
-        <th>果糖含量（g/100g）</th>
-        <th>功能亮点</th>
-     
-            </tr>
-    </thead>
-    <tbody>
-      <!-- 全谷物类 -->
-      <tr>
-        <td class="category-cell" rowspan="9">全谷物类</td>
-        <td>糙米</td>
-        <td><span class="fiber-high">3.5（高）</span></td>
-        <td><span class="gi-fructose-medium">68（中）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>保留麸皮胚芽，缓释能量</td>
-      </tr>
-      <tr>
-        <td>黑米</td>
-        <td><span class="fiber-high">3.8（高）</span></td>
-        <td><span class="gi-fructose-low">50（低）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>富含花青素，强抗氧化</td>
-      </tr>
-      <tr>
-        <td>藜麦</td>
-        <td><span class="fiber-medium">2.8（中）</span></td>
-        <td><span class="gi-fructose-low">53（低）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>完整植物蛋白，含9种必需氨基酸</td>
-      </tr>
-      <tr>
-        <td>小米</td>
-        <td><span class="fiber-medium">2.3（中）</span></td>
-        <td><span class="gi-fructose-high">71（高）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>易消化，助肠胃调理</td>
-      </tr>
-      <tr>
-        <td>荞麦</td>
-        <td><span class="fiber-high">3.4（高）</span></td>
-        <td><span class="gi-fructose-low">54（低）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>含芦丁，护血管降血压</td>
-      </tr>
-      <tr>
-        <td>燕麦（原粒）</td>
-        <td><span class="fiber-high">6.0（极高）</span></td>
-        <td><span class="gi-fructose-low">55（低）</span></td>
-        <td><span class="gi-fructose-low">0.2（低）</span></td>
-        <td>β-葡聚糖，降血脂增饱腹</td>
-      </tr>
-      <tr>
-        <td>玉米（全粒）</td>
-        <td><span class="fiber-medium">2.7（中）</span></td>
-        <td><span class="gi-fructose-medium">60（中）</span></td>
-        <td><span class="gi-fructose-low">0.3（低）</span></td>
-        <td>含叶黄素，护眼</td>
-      </tr>
-      <tr>
-        <td>全麦意面</td>
-        <td><span class="fiber-medium">3.0（中）</span></td>
-        <td><span class="gi-fructose-low">50（低）</span></td>
-        <td><span class="gi-fructose-low">0.3（低）</span></td>
-        <td>血糖反应平稳，控糖优选</td>
-      </tr>
-      <tr>
-        <td>全麦面包</td>
-        <td><span class="fiber-medium">3.2（中）</span></td>
-        <td><span class="gi-fructose-medium">65（中）</span></td>
-        <td><span class="gi-fructose-low">1.2（低）</span></td>
-        <td>保留麦麸，升糖较慢</td>
-      </tr>
+  <header>激素排毒俱乐部 ｜科学排毒，从激素平衡开始</header>
 
-      <!-- 块茎类 -->
-      <tr>
-        <td class="category-cell" rowspan="5">块茎类</td>
-        <td>土豆（连皮）</td>
-        <td><span class="fiber-medium">2.2（中）</span></td>
-        <td><span class="gi-fructose-high">78（高）</span></td>
-        <td><span class="gi-fructose-low">0.2（低）</span></td>
-        <td>抗性淀粉，冷却后GI下降</td>
-      </tr>
-      <tr>
-        <td>芋头</td>
-        <td><span class="fiber-medium">2.1（中）</span></td>
-        <td><span class="gi-fructose-medium">60（中）</span></td>
-        <td><span class="gi-fructose-low">0.3（低）</span></td>
-        <td>易消化，适合恢复期</td>
-      </tr>
-      <tr>
-        <td>山药</td>
-        <td><span class="fiber-medium">2.7（中）</span></td>
-        <td><span class="gi-fructose-medium">65（中）</span></td>
-        <td><span class="gi-fructose-low">0.4（低）</span></td>
-        <td>含黏蛋白，护胃肠</td>
-      </tr>
-      <tr>
-        <td>紫薯</td>
-        <td><span class="fiber-high">4.0（高）</span></td>
-        <td><span class="gi-fructose-medium">58（中）</span></td>
-        <td><span class="gi-fructose-low">0.4（低）</span></td>
-        <td>富含花青素，营养密度高</td>
-      </tr>
-      <tr>
-        <td>红薯</td>
-        <td><span class="fiber-high">3.3（高）</span></td>
-        <td><span class="gi-fructose-medium">61（中）</span></td>
-        <td><span class="gi-fructose-low">0.5（低）</span></td>
-        <td>含β-胡萝卜素，抗氧化</td>
-      </tr>
+  <nav>
+    <div class="dropdown" id="hormone-dropdown">
+      <button class="dropbtn" id="dropbtn"><i class="fas fa-dna"></i> 激素减脂入门</button>
+      <div class="dropdown-content" id="dropdown-content">
+        <div><div class="submenu-toggle" id="base-toggle">激素科普</div>
+          <div class="submenu-content" id="base-submenu">
+            <a href="#">饱腹激素（瘦素）</a>
+            <a href="https://sandy-long.github.io/lean-yds/" target="_blank">储脂激素（胰岛素）</a> 
+            <a href="#">压力激素（皮质醇）</a>
+            <a href="#">燃脂激素（胰高血糖素）</a>
+            <a href="#">夜间修复与燃脂（生长激素）</a>
+            <a href="#">什么是GLP-1？</a>
+          </div>
+        </div>
+        <div><div class="submenu-toggle" id="myth-toggle">血糖-胰岛素-细胞</div>
+          <div class="submenu-content" id="myth-submenu">
+	    <a href="https://sandy-long.github.io/lean-Insulin-signaling/" target="_blank">胰岛素信号通路比喻</a>  
+            <a href=" https://sandy-long.github.io/lean-Glucose-cell-metabolism/" target="_blank">糖酵解和三羧酸循环</a>  
+            <a href="https://sandy-long.github.io/lean-liver-starch/" target="_blank">肝糖原合成及供能</a>  
+            <a href="https://sandy-long.github.io/lean-muscle-glycogen/" target="_blank">肌糖原合成及供能</a>  
+            <a href="https://sandy-long.github.io/lean-ydssignal/" target="_blank">胰岛素影响代谢</a> 
+            <a href="https://sandy-long.github.io/lean-liverfat/" target="_blank">脂肪肝的形成</a> 
+		   <a href="https://sandy-long.github.io/lean-fructose/" target="_blank">果糖在肝脏代谢</a> 
+		  <a href="https://sandy-long.github.io/lean-alcohol/" target="_blank">酒精在肝脏代谢</a> 
+		   <a href="https://sandy-long.github.io/lean-free-radical/" target="_blank">长期失眠或慢性压力加速衰老机制</a>
+		   <a href="https://sandy-long.github.io/lean-Highsugar-inflammation/" target="_blank">高糖导致炎症</a>
+            <a href="#">为什么节食反而胖？</a>
+            <a href="#">熬夜真的让你吃不饱？</a>
+            <a href="#">有氧运动=最佳燃脂方式吗？</a>
+          </div>
+        </div>
+        <div>
+           <div class="submenu-toggle" id="pre-toggle">胰岛素抵抗</div>
+      <div class="submenu-content" id="pre-submenu">
+        <a href="#">减脂原理一图看懂</a>
+        <a href="#">激素调节对减脂的影响</a>
+        <a href="#">你该先调节激素还是先运动？</a>
+        <a href="#">激活燃脂激素</a>
+        <a href="#">告别暴食</a>
+        <a href="#">支持瘦素和代谢</a>
+        <a href="#">调节皮质醇</a>
+		<a href="https://sandy-long.github.io/lean-yddk/" target="_blank">胰岛素抵抗·血糖</a>
+		<a href="https://sandy-long.github.io/lean-yddkfat/" target="_blank">胰岛素抵抗·脂肪</a>
+	        <a href="https://sandy-long.github.io/lean-yddkliver/" target="_blank">胰岛素抵抗·肝脏</a>
+	        <a href="https://sandy-long.github.io/lean-yddk-muscle/" target="_blank">胰岛素抵抗·肌肉</a>
+		<a href="https://sandy-long.github.io/lean-yddkbrain//" target="_blank">胰岛素抵抗·大脑</a>
+	
+    </div> 
+  </div> 
+</div> 
+    
+  <div class="dropdown" id="diet-dropdown">
+  <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>   
+  <div class="dropdown-content" id="diet-submenu">
+    <!-- 优化后的营养食物子菜单 - 单箭头版本 -->
+   <div class="submenu-toggle" id="nutrition-toggle">
+  营养食物
+  <span class="double-arrows">
+   
+  </span>
+</div>
+    <div class="submenu-content" id="nutrition-submenu">
+      <a href="https://github.com/Sandy-long/lean-protein/raw/main/蛋白质的重要性.pdf" target="_blank">
+        <i class="fas fa-egg"></i> 蛋白质的重要性
+	       <a href="https://sandy-long.github.io/lean-fatfood/" target="_blank">
+        <i class="fas fa-tint"></i> 认识食用油脂
+		       <a href="https://sandy-long.github.io/lean-Carbohydrates/" target="_blank">
+			     <i class="fas fa-bowl-food"></i> 优质碳水
+      </a>
+      <a href="#">
+        <i class="fas fa-apple-alt"></i> 饱腹感饮食
+      </a>
+      <a href="https://sandy-long.github.io/lean-Inflamed-food/" target="_blank">
+        <i class="fas fa-ban"></i> 常见发炎食物
+      </a>
+    </div>
 
-      <!-- 豆类 -->
-      <tr>
-        <td class="category-cell" rowspan="7">豆类</td>
-        <td>黄豆</td>
-        <td><span class="fiber-high">9.3（高）</span></td>
-        <td><span class="gi-fructose-low">18（低）</span></td>
-        <td><span class="gi-fructose-low">0.2（低）</span></td>
-        <td>植物雌激素，助激素平衡</td>
-      </tr>
-      <tr>
-        <td>黑豆</td>
-        <td><span class="fiber-high">8.7（高）</span></td>
-        <td><span class="gi-fructose-low">30（低）</span></td>
-        <td><span class="gi-fructose-low">0.2（低）</span></td>
-        <td>花青素抗氧化</td>
-      </tr>
-      <tr>
-        <td>扁豆</td>
-        <td><span class="fiber-high">7.9（极高）</span></td>
-        <td><span class="gi-fructose-low">32（低）</span></td>
-        <td><span class="gi-fructose-low">0.3（低）</span></td>
-        <td>高蛋白，素食优选</td>
-      </tr>
-      <tr>
-        <td>绿豆</td>
-        <td><span class="fiber-high">7.6（高）</span></td>
-        <td><span class="gi-fructose-low">31（低）</span></td>
-        <td><span class="gi-fructose-low">0.3（低）</span></td>
-        <td>清热解毒</td>
-      </tr>
-      <tr>
-        <td>红豆</td>
-        <td><span class="fiber-high">7.3（高）</span></td>
-        <td><span class="gi-fructose-low">34（低）</span></td>
-        <td><span class="gi-fructose-low">0.4（低）</span></td>
-        <td>利尿消肿</td>
-      </tr>
-      <tr>
-        <td>鹰嘴豆</td>
-        <td><span class="fiber-high">7.6（高）</span></td>
-        <td><span class="gi-fructose-low">28（低）</span></td>
-        <td><span class="gi-fructose-low">0.6（低）</span></td>
-        <td>富含蛋白质，助肌肉合成</td>
-      </tr>
-      <tr>
-        <td>豌豆</td>
-        <td><span class="fiber-medium">5.7（中）</span></td>
-        <td><span class="gi-fructose-low">35（低）</span></td>
-        <td><span class="gi-fructose-low">0.6（低）</span></td>
-        <td>促进肠道蠕动</td>
-      </tr>
-
-      <!-- 水果类 -->
-      <tr>
-        <td class="category-cell" rowspan="10">水果类</td>
-        <td>橙子</td>
-        <td><span class="fiber-medium">2.4（中）</span></td>
-        <td><span class="gi-fructose-low">40（低）</span></td>
-        <td><span class="gi-fructose-low">2.2（低）</span></td>
-        <td>含类黄酮，护血管弹性</td>
-      </tr>
-      <tr>
-        <td>草莓</td>
-        <td><span class="fiber-medium">2.0（中）</span></td>
-        <td><span class="gi-fructose-low">41（低）</span></td>
-        <td><span class="gi-fructose-low">2.4（低）</span></td>
-        <td>富维C叶酸，增强免疫</td>
-      </tr>
-	  <tr>
-  <td>西瓜</td>
-  <td><span class="fiber-low">0.4（低）</span></td>
-  <td><span class="gi-fructose-medium">72（高）</span></td>
-  <td><span class="gi-fructose-medium">3.2（中）</span></td>
-  <td>高水分，利尿</td>
-</tr>
-<tr>
-  <td>雪梨瓜</td>
-  <td><span class="fiber-low">1.1（低）</span></td>
-  <td><span class="gi-fructose-medium">66（中）</span></td>
-  <td><span class="gi-fructose-medium">3.3（中）</span></td>
-  <td>多汁清口，降火润肺</td>
-</tr>
-<tr>
-  <td>木瓜</td>
-  <td><span class="fiber-medium">1.7（中）</span></td>
-  <td><span class="gi-fructose-medium">60（中）</span></td>
-  <td><span class="gi-fructose-medium">5.0（中）</span></td>
-  <td>含木瓜酶，助消化</td>
-</tr>
-      <tr>
-        <td>葡萄柚</td>
-        <td><span class="fiber-medium">1.6（中）</span></td>
-        <td><span class="gi-fructose-low">25（低）</span></td>
-        <td><span class="gi-fructose-low">2.5（低）</span></td>
-        <td>果糖低，富柚皮素</td>
-      </tr>
-      <tr>
-        <td>猕猴桃</td>
-        <td><span class="fiber-high">3.0（高）</span></td>
-        <td><span class="gi-fructose-low">50（低）</span></td>
-        <td><span class="gi-fructose-medium">3.3（中）</span></td>
-        <td>维C极高，润肠通便</td>
-      </tr>
-      <tr>
-        <td>蓝莓</td>
-        <td><span class="fiber-medium">2.4（中）</span></td>
-        <td><span class="gi-fructose-low">53（低）</span></td>
-        <td><span class="gi-fructose-medium">4.9（中）</span></td>
-        <td>花青素强抗氧化</td>
-      </tr>
-      <tr>
-        <td>苹果</td>
-        <td><span class="fiber-medium">2.4（中）</span></td>
-        <td><span class="gi-fructose-low">38（低）</span></td>
-        <td><span class="gi-fructose-high">5.9（高）</span></td>
-        <td>含果胶，稳血糖</td>
-      </tr>
-      <tr>
-        <td>梨</td>
-        <td><span class="fiber-medium">2.2（中）</span></td>
-        <td><span class="gi-fructose-low">40（低）</span></td>
-        <td><span class="gi-fructose-high">6.2（高）</span></td>
-        <td>润肺止咳，高水分</td>
-      </tr>
-
-      <!-- 蔬菜类 -->
-      <tr>
-        <td class="category-cell" rowspan="2">蔬菜类</td>
-        <td>胡萝卜</td>
-        <td><span class="fiber-medium">2.8（中）</span></td>
-        <td><span class="gi-fructose-low">39（低）</span></td>
-        <td><span class="gi-fructose-low">0.6（低）</span></td>
-        <td>富含β-胡萝卜素</td>
-      </tr>
-      <tr>
-        <td>南瓜</td>
-        <td><span class="fiber-medium">2.5（中）</span></td>
-        <td><span class="gi-fructose-low">51（低）</span></td>
-        <td><span class="gi-fructose-low">1.4（低）</span></td>
-        <td>类胡萝卜素，抗氧化</td>
-      </tr>
-	  <tr>
-  <td class="category-cell">乳制品类</td>
-  <td>纯牛奶</td>
-  <td><span class="fiber-extreme-low">0（极低）</span></td>
-  <td><span class="gi-fructose-low">30（低）</span></td>
-  <td><span class="gi-fructose-low">0（低）</span></td>
-  <td>优质蛋白质，钙来源</td>
-</tr>
-
-      <!-- 应避免类 -->
-      <tr>
-        <td class="category-cell" rowspan="5">应避免类</td>
-        <td>白米</td>
-        <td><span class="fiber-low">0.4（极低）</span></td>
-        <td><span class="gi-fructose-high">85（高）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>精制碳水，升糖快</td>
-      </tr>
-      <tr>
-        <td>白面</td>
-        <td><span class="fiber-low">0.6（极低）</span></td>
-        <td><span class="gi-fructose-high">85（高）</span></td>
-        <td><span class="gi-fructose-low">0.1（低）</span></td>
-        <td>加工多，纤维损失</td>
-      </tr>
-      <tr>
-        <td>饼干</td>
-        <td><span class="fiber-low">0.8（极低）</span></td>
-        <td><span class="gi-fructose-high">70–90（高）</span></td>
-        <td><span class="gi-fructose-medium">3.5–5.5（中-高）</span></td>
-        <td>精淀粉+糖+油脂，易胖</td>
-      </tr>
-      <tr>
-        <td>蛋糕</td>
-        <td><span class="fiber-low">0.3（极低）</span></td>
-        <td><span class="gi-fructose-high">80+（高）</span></td>
-        <td><span class="gi-fructose-high">6.5（高）</span></td>
-        <td>高糖脂，胰岛素波动大</td>
-      </tr>
-      <tr>
-        <td>含糖饮料</td>
-        <td>无</td>
-        <td><span class="gi-fructose-high">95（高）</span></td>
-        <td><span class="gi-fructose-high">8–10+（高）</span></td>
-        <td>游离糖多，无营养，升糖极快</td>
-      </tr>
-	  <tr>
-        <td colspan="6" style="text-align: left; font-size: 12px; color: #555;  border: none; ">
-          <strong>备注：</strong><br />
-          <strong>膳食纤维（g/100g）标准：</strong>高 ≥ 3.0， 中 1.5–2.9， 低 &lt; 1.5<br />
-          <strong>GI值（血糖反应）标准：</strong>低 ≤ 55， 中 56–69， 高 ≥ 70<br />
-          <strong>果糖含量（g/100g）标准：</strong>低 ≤ 2.0， 中 2.1–4.0， 高 &gt; 4.0
-         <table>
-		 <table class="carb-intake-table">
-    <caption>每日碳水摄入量建议（目标200克碳水，相当于800千卡能量），根据GI值合理分配碳水摄入量</caption>
-    <thead>
-      <tr>
-        <th>食物类别</th>
-        <th>GI范围</th>
-        <th>份额建议（克）</th>
-        <th>理由</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>低GI</td>
-        <td>≤55</td>
-        <td>120-140克</td>
-        <td>平稳释放能量，适合多吃</td>
-      </tr>
-      <tr>
-        <td>中GI</td>
-        <td>56-69</td>
-        <td>40-60克</td>
-        <td>适量摄入，注意搭配蛋白和脂肪</td>
-      </tr>
-      <tr>
-        <td>高GI</td>
-        <td>≥70</td>
-        <td>20-30克</td>
-        <td>控制数量，避免血糖剧烈波动</td>
-      </tr>
-    </tbody>
-  </table>
-		</td>
-		
- 
-      </tr>
-    </tbody>
-  
-  </table>
-
-  <div class="references">
-    <strong>参考文献：</strong>
-    <ol>
-      <li>World Health Organization. Diet, Nutrition and the Prevention of Chronic Diseases: Report of a Joint WHO/FAO Expert Consultation. WHO Technical Report Series 916, 2003. (WHO出版)</li>
-      <li>International tables of glycemic index and glycemic load values: 2008. Diabetes Care. 2008.</li>
-      <li>United States Department of Agriculture, Agricultural Research Service. FoodData Central. 2025.</li>
-      <li>Soy foods, isoflavones, and the health of postmenopausal women. The American Journal of Clinical Nutrition. 2010.</li>
-      <li>Resistant starch alters gut microbiota and modulates colonic inflammation in rats. Nutrients. 2015.</li>
-    </ol>
+    <!-- 其他直接链接 -->
+    <a href="https://sandy-long.github.io/lean-OMAD/" target="_blank">
+      <i class="fas fa-clock" style="margin-right: 8px;"></i> 每日一餐指南
+    </a>
+    <a href="#">
+      <i class="fas fa-hourglass-half" style="margin-right: 8px;"></i> 轻断食
+    </a>
+    <a href="#">
+      <i class="fas fa-balance-scale" style="margin-right: 8px;"></i> "不节食也能瘦"原则
+    </a>
   </div>
+</div>
+
+    <div class="dropdown" id="lifestyle-dropdown">
+      <button class="dropbtn"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</button>
+      <div class="dropdown-content" id="lifestyle-submenu">
+        <a href="#">睡眠质量对减脂的影响</a>
+        <a href="#">情绪性进食与激素波动</a>
+        <a href="#">适合激素紊乱人群的运动</a>
+      </div>
+    </div>
+
+    <div class="dropdown" id="tools-dropdown">
+      <button class="dropbtn"><i class="fas fa-tools"></i> 免费工具</button>
+      <div class="dropdown-content" id="tools-submenu">
+        <a href="#">一周激素平衡饮食计划（PDF）</a>
+        <a href="#">代谢/胰岛素/瘦素测试表（Notion）</a>
+        <a href="#">高饱腹感食物列表</a>
+      </div>
+    </div>
+
+    <a href="#" class="module-button"><i class="fas fa-phone"></i> 联系我</a>
+  </nav>
+
+  <section class="image-showcase">
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%9A%E5%9B%8A.jpg" alt="多囊" />
+    <a href="https://sandy-long.github.io/fat-reason/" target="_blank">
+  <img 
+    src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%A7%E8%82%9A%E5%AD%90.jpg" 
+    alt="大肚子"
+    onclick="openImageModal(this.src)" 
+    style="cursor: zoom-in;" 
+  />
+</a>
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E7%97%9B%E9%A3%8E.jpg" alt="痛风" />
+  </section>
+
+  <footer id="footer">
+    © <span id="year"></span> 激素排毒俱乐部. 版权所有
+  </footer>
+
+  <script>
+ const dropbtn = document.getElementById('dropbtn');
+  const dropdownContent = document.getElementById('dropdown-content');
+  const dietBtn = document.getElementById('diet-btn');
+  const dietSubmenu = document.getElementById('diet-submenu');
+  const baseToggle = document.getElementById('base-toggle');
+  const baseSubmenu = document.getElementById('base-submenu');
+  const mythToggle = document.getElementById('myth-toggle');
+  const mythSubmenu = document.getElementById('myth-submenu');
+  const preToggle = document.getElementById('pre-toggle');
+  const preSubmenu = document.getElementById('pre-submenu');
+  const nutritionToggle = document.getElementById('nutrition-toggle');
+  const nutritionSubmenu = document.getElementById('nutrition-submenu');
+  const lifestyleBtn = document.querySelector('#lifestyle-dropdown .dropbtn');
+  const lifestyleSubmenu = document.getElementById('lifestyle-submenu');
+  const toolsBtn = document.querySelector('#tools-dropdown .dropbtn');
+  const toolsSubmenu = document.getElementById('tools-submenu');
+
+  dropbtn.addEventListener('click', e => {
+    e.stopPropagation();
+    dropdownContent.classList.toggle('show');
+    dietSubmenu.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  dietBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    dietSubmenu.classList.toggle('show');
+    dropdownContent.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  lifestyleBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    lifestyleSubmenu.classList.toggle('show');
+    dropdownContent.classList.remove('show');
+    dietSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  toolsBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    toolsSubmenu.classList.toggle('show');
+    dropdownContent.classList.remove('show');
+    dietSubmenu.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  function closeAllSubmenus(){
+    [baseSubmenu, mythSubmenu, preSubmenu, nutritionSubmenu].forEach(menu => menu.classList.remove('show'));
+    [baseToggle, mythToggle, preToggle, nutritionToggle].forEach(toggle => toggle.classList.remove('active'));
+  }
+
+  function toggleSubmenu(toggleBtn, submenu){
+    toggleBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isActive = submenu.classList.contains('show');
+      closeAllSubmenus();
+      if(!isActive){
+        submenu.classList.add('show');
+        toggleBtn.classList.add('active');
+      }
+    });
+  }
+
+  toggleSubmenu(nutritionToggle, nutritionSubmenu);  
+  toggleSubmenu(baseToggle, baseSubmenu);
+  toggleSubmenu(mythToggle, mythSubmenu);
+  toggleSubmenu(preToggle, preSubmenu);
+
+  document.addEventListener('click', () => {
+    dropdownContent.classList.remove('show');
+    dietSubmenu.classList.remove('show');
+    lifestyleSubmenu.classList.remove('show');
+    toolsSubmenu.classList.remove('show');
+    closeAllSubmenus();
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

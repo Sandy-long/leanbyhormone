@@ -347,9 +347,40 @@
     <div class="dropdown" id="lifestyle-dropdown">
       <button class="dropbtn"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</button>
       <div class="dropdown-content" id="lifestyle-submenu">
-        <a href="#">睡眠质量对减脂的影响</a>
-        <a href="#">情绪性进食与激素波动</a>
-        <a href="#">适合激素紊乱人群的运动</a>
+        <!-- 睡眠子菜单 -->
+        <div class="submenu-toggle" id="sleep-toggle">
+          睡眠
+          <span class="submenu-arrow">▸</span>
+        </div>
+        <div class="submenu-content" id="sleep-submenu">
+          <a href="#">睡眠质量对减脂的影响</a>
+          <a href="#">如何提高深度睡眠</a>
+          <a href="#">睡前放松技巧</a>
+        </div>
+        
+        <!-- 情绪子菜单 -->
+        <div class="submenu-toggle" id="emotion-toggle">
+          情绪
+          <span class="submenu-arrow">▸</span>
+        </div>
+        <div class="submenu-content" id="emotion-submenu">
+          <a href="https://sandy-long.github.io/lean-happiness/" target="_blank">
+            <i class="fas fa-face-laugh-squint"></i> 激活快乐
+          </a>
+          <a href="#">情绪性进食与激素波动</a>
+          <a href="#">压力管理技巧</a>
+        </div>
+        
+        <!-- 运动子菜单 -->
+        <div class="submenu-toggle" id="exercise-toggle">
+          运动
+          <span class="submenu-arrow">▸</span>
+        </div>
+        <div class="submenu-content" id="exercise-submenu">
+          <a href="#">适合激素紊乱人群的运动</a>
+          <a href="#">运动时间与激素分泌</a>
+          <a href="#">低强度运动的好处</a>
+        </div>
       </div>
     </div>
 
@@ -399,6 +430,14 @@
   const lifestyleSubmenu = document.getElementById('lifestyle-submenu');
   const toolsBtn = document.querySelector('#tools-dropdown .dropbtn');
   const toolsSubmenu = document.getElementById('tools-submenu');
+  
+  // 新增的子菜单变量
+  const sleepToggle = document.getElementById('sleep-toggle');
+  const sleepSubmenu = document.getElementById('sleep-submenu');
+  const emotionToggle = document.getElementById('emotion-toggle');
+  const emotionSubmenu = document.getElementById('emotion-submenu');
+  const exerciseToggle = document.getElementById('exercise-toggle');
+  const exerciseSubmenu = document.getElementById('exercise-submenu');
 
   dropbtn.addEventListener('click', e => {
     e.stopPropagation();
@@ -437,8 +476,8 @@
   });
 
   function closeAllSubmenus(){
-    [baseSubmenu, mythSubmenu, preSubmenu, nutritionSubmenu].forEach(menu => menu.classList.remove('show'));
-    [baseToggle, mythToggle, preToggle, nutritionToggle].forEach(toggle => toggle.classList.remove('active'));
+    [baseSubmenu, mythSubmenu, preSubmenu, nutritionSubmenu, sleepSubmenu, emotionSubmenu, exerciseSubmenu].forEach(menu => menu.classList.remove('show'));
+    [baseToggle, mythToggle, preToggle, nutritionToggle, sleepToggle, emotionToggle, exerciseToggle].forEach(toggle => toggle.classList.remove('active'));
   }
 
   function toggleSubmenu(toggleBtn, submenu){
@@ -457,6 +496,10 @@
   toggleSubmenu(baseToggle, baseSubmenu);
   toggleSubmenu(mythToggle, mythSubmenu);
   toggleSubmenu(preToggle, preSubmenu);
+  // 新增的子菜单切换
+  toggleSubmenu(sleepToggle, sleepSubmenu);
+  toggleSubmenu(emotionToggle, emotionSubmenu);
+  toggleSubmenu(exerciseToggle, exerciseSubmenu);
 
   document.addEventListener('click', () => {
     dropdownContent.classList.remove('show');

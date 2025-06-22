@@ -618,7 +618,61 @@
 </div>
 
 <script>
-  // 关键词跳转映射表 - 包含首字母匹配
+  // 预定义的搜索索引
+  const searchIndex = [
+    {
+      title: "胰岛素",
+      url: "https://sandy-long.github.io/lean-yds/",
+      content: "胰岛素是调节血糖和脂肪储存的主要激素，了解胰岛素如何影响代谢和体重管理"
+    },
+    {
+      title: "皮质醇",
+      url: "https://sandy-long.github.io/lean-cortisol/",
+      content: "压力激素皮质醇的作用及其对体重和健康的影响，学习如何管理压力水平"
+    },
+    {
+      title: "瘦素",
+      url: "https://sandy-long.github.io/lean-leptin/",
+      content: "瘦素是调节饱腹感的激素，了解瘦素抵抗如何导致暴饮暴食和体重增加"
+    },
+    {
+      title: "睡眠",
+      url: "https://sandy-long.github.io/lean-sleepclass/",
+      content: "睡眠质量与激素平衡的关系，改善睡眠习惯以促进减脂和整体健康"
+    },
+    {
+      title: "蛋白质",
+      url: "https://sandy-long.github.io/lean-protein/",
+      content: "蛋白质在激素平衡和肌肉维持中的重要性，了解优质蛋白质来源"
+    },
+    {
+      title: "脂肪肝",
+      url: "https://sandy-long.github.io/lean-liverfat/",
+      content: "脂肪肝的形成机制及其与胰岛素抵抗的关系，通过饮食改善肝脏健康"
+    },
+    {
+      title: "胰岛素抵抗",
+      url: "https://sandy-long.github.io/lean-yddk/",
+      content: "胰岛素抵抗的成因、症状和逆转方法，恢复胰岛素敏感性以促进减脂"
+    },
+    {
+      title: "情绪管理",
+      url: "https://sandy-long.github.io/lean-happiness/",
+      content: "情绪与激素波动的关系，学习管理情绪性进食和压力反应"
+    },
+    {
+      title: "弹性训练",
+      url: "https://sandy-long.github.io/lean-Elastic-training/",
+      content: "适合激素紊乱人群的运动方式，低强度运动对激素平衡的好处"
+    },
+    {
+      title: "果糖代谢",
+      url: "https://sandy-long.github.io/lean-fructose/",
+      content: "果糖在肝脏中的代谢过程及其对肝脏健康和胰岛素敏感性的影响"
+    }
+  ];
+
+  // 关键词跳转映射表
   const keywordRedirects = {
     // 睡眠相关
     '睡': 'https://sandy-long.github.io/lean-sleepclass/',
@@ -626,7 +680,7 @@
     '睡不着': 'https://sandy-long.github.io/lean-sleepclass/',
     '睡眠': 'https://sandy-long.github.io/lean-sleepclass/',
     '熬夜': 'https://sandy-long.github.io/lean-sleepclass/',
-  'sleep': 'https://sandy-long.github.io/lean-sleepclass/',
+    'sleep': 'https://sandy-long.github.io/lean-sleepclass/',
     
     // 蛋白质相关
     '蛋白质': 'https://sandy-long.github.io/lean-protein/',
@@ -639,27 +693,26 @@
     '胰岛素': 'https://sandy-long.github.io/lean-yds/',
     'insulin': 'https://sandy-long.github.io/lean-yds/',
     '血糖': 'https://sandy-long.github.io/lean-yds/',
- 
+    'yds': 'https://sandy-long.github.io/lean-yds/',
     
     // 皮质醇相关
     '皮质醇': 'https://sandy-long.github.io/lean-cortisol/',
     '压力': 'https://sandy-long.github.io/lean-cortisol/',
     'stress': 'https://sandy-long.github.io/lean-cortisol/',
     '皮': 'https://sandy-long.github.io/lean-cortisol/', 
- 
+    'cortisol': 'https://sandy-long.github.io/lean-cortisol/',
     
     // 瘦素相关
     '瘦素': 'https://sandy-long.github.io/lean-leptin/',
     'leptin': 'https://sandy-long.github.io/lean-leptin/',
     '饱腹感': 'https://sandy-long.github.io/lean-leptin/',
     '瘦': 'https://sandy-long.github.io/lean-leptin/', 
-	
-	 // 肝脏相关
-    '肝脏': 'https://sandy-long.github.io/lean-yddkliver/',
-	'肝脏': 'https://sandy-long.github.io/lean-liverfat/',
-	
-
     
+    // 肝脏相关
+    '肝脏': 'https://sandy-long.github.io/lean-yddkliver/',
+    '肝': 'https://sandy-long.github.io/lean-liverfat/',
+    '脂肪肝': 'https://sandy-long.github.io/lean-liverfat/',
+    'liver': 'https://sandy-long.github.io/lean-liverfat/',
     
     // 其他关键词可以继续添加...
   };
@@ -737,23 +790,6 @@
     const searchResults = document.getElementById('searchResults');
     const resultsContainer = document.querySelector('.search-results-container');
 
-    // 收集所有可搜索的内容
-    function collectSearchableContent() {
-      const elements = document.querySelectorAll('h1, h2, h3, h4, p, a, li, span, .service-title, .service-desc');
-      const content = [];
-      
-      elements.forEach(el => {
-        if (el.textContent.trim() && !el.classList.contains('search-button') && !el.classList.contains('dropbtn')) {
-          content.push({
-            text: el.textContent.trim(),
-            element: el
-          });
-        }
-      });
-      
-      return content;
-    }
-
     // 执行搜索
     function performSearch() {
       const query = searchInput.value.trim().toLowerCase();
@@ -772,10 +808,10 @@
         }
       }
 
-      // 如果没有关键词匹配，执行普通搜索
-      const searchableContent = collectSearchableContent();
-      const results = searchableContent.filter(item =>
-        item.text.toLowerCase().includes(query)
+      // 如果没有关键词匹配，搜索预定义索引
+      const results = searchIndex.filter(item =>
+        item.title.toLowerCase().includes(query) || 
+        item.content.toLowerCase().includes(query)
       );
 
       displayResults(results, query);
@@ -793,26 +829,29 @@
           resultItem.className = 'search-result-item';
 
           // 高亮显示匹配的文本
-          const highlightedText = result.text.replace(
+          const highlightedTitle = result.title.replace(
+            new RegExp(query, 'gi'),
+            match => `<span class="highlight">${match}</span>`
+          );
+          
+          const highlightedContent = result.content.substring(0, 100).replace(
             new RegExp(query, 'gi'),
             match => `<span class="highlight">${match}</span>`
           );
 
           resultItem.innerHTML = `
-            <p>${highlightedText}</p>
-            <small>${result.element.tagName.toLowerCase()}</small>
+            <h4>${highlightedTitle}</h4>
+            <p>${highlightedContent}...</p>
           `;
-
-          // 点击结果跳转到对应元素位置
+          
           resultItem.addEventListener('click', () => {
-            result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            searchResults.style.display = 'none';
+            window.location.href = result.url;
           });
-
+          
           resultsContainer.appendChild(resultItem);
         });
       }
-
+      
       searchResults.style.display = 'block';
     }
 
@@ -854,7 +893,6 @@
       }
     });
   });
-  
 </script>
 </body>
 </html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>激素排毒俱乐部</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Modal for Enlarged Image */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    #modalImage {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background-color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+    }
+    header {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.6em;
+      font-weight: bold;
+      background-color:#ffffff;
+      color: #333;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+    nav {
+      margin-top: 20px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1000;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropbtn {
+      background-color: #f5f5f5;
+      border: none;
+      padding: 10px 18px;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      color: #333;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .dropbtn i, .dropdown-content a i {
+      margin-right: 8px;
+      color: #8a2be2;
+      font-size: 1.2em;
+    }
+    .dropbtn:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-3px);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 2000;
+      top: 100%;
+      left: 0;
+      color: #333;
+      padding: 0;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .dropdown-content > a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+      user-select: none;
+    }
+    .dropdown-content > a:hover {
+      background-color: #f0f0f0;
+    }
+    .submenu-toggle {
+      position: relative;
+      padding: 12px 18px;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .submenu-toggle::after {
+      content: "▸";
+      position: absolute;
+      right: 18px;
+      font-size: 1em;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+    .submenu-toggle.active::after {
+      transform: rotate(90deg);
+    }
+    .submenu-content {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      min-width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background-color: #fff;
+      display: none;
+      z-index: 3000;
+    }
+    .submenu-content.show {
+      display: block;
+    }
+    .submenu-content a {
+      display: block;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95em;
+      border-bottom: 1px solid #eee;
+      background-color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+    }
+    .submenu-content a:hover {
+      background-color: #f0f0f0;
+    }
+    .module-button {
+      display: inline-flex;
+      align-items: center;
+      background-color: #ffd700;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 1em;
+      color: #333;
+      text-decoration: none;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .module-button i {
+      margin-right: 8px;
+      color: #8a2be2;
+      font-size: 1.2em;
+    }
+    .module-button:hover {
+      transform: translateY(-3px);
+      background-color: #ffcc00;
+    }
+    section.image-showcase {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px 20px;
+      z-index: 1;
+    }
+    section.image-showcase img {
+      width: 280px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    section.image-showcase img:hover {
+      transform: scale(1.03);
+    }
+    footer#footer {
+      margin-top: auto;
+      padding: 12px 0;
+      text-align: center;
+      color: #333;
+      background-color: #f5f5f5;
+      font-size: 0.9em;
+      width: 100%;
+    }
+    .submenu-arrow {
+      margin-left: 8px;
+      font-size: 0.9em;
+      color: #666;
+      float: right;
+    }
+    .submenu-toggle.active .submenu-arrow {
+      transform: none;
+    }
+    
+    /* 搜索框样式 */
+    .search-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .search-input {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 12px 0 0 12px;
+      font-size: 1em;
+      width: 200px;
+      outline: none;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+    .search-button {
+      background-color: #ffd700;
+      color: #333;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 0 12px 12px 0;
+      cursor: pointer;
+      font-size: 1em;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .search-button:hover {
+      background-color: #ffcc00;
+    }
+    
+    /* 搜索结果样式 */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 300px;
+      overflow-y: auto;
+      background-color: white;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 10000;
+      display: none;
+    }
+    
+    .search-result-item {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .search-result-item:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .highlight {
+      background-color: #ffd700;
+      font-weight: bold;
+      padding: 2px;
+      border-radius: 3px;
+    }
+    
+    /* 服务介绍模块 */
+    .services-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .services-intro {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .service-card {
+      padding: 20px;
+      max-width: 500px;
+      margin-left: 0;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .service-icon {
+      font-size: 1em;
+      margin-bottom: 15px;
+    }
+    .service-title {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .service-desc {
+      font-size: 0.95em;
+      margin-bottom: 15px;
+    }
+    
+    .services-intro h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .services-intro p {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .service-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .service-link {
+      font-size: 14px;
+      display: inline-block;
+      background-color: #8a2be2;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+    }
+    
+    .service-link:hover {
+      background-color: #7b1fa2;
+    }
+
+    .card {
+      text-align: left;
+    }
+    
+    /* 搜索建议样式 */
+    .search-suggestions {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .suggestion-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #666;
+    }
+    
+    .suggestion-item {
+      padding: 8px 12px;
+      margin: 4px 0;
+      background-color: #f5f5f5;
+      border-radius: 6px;
+      display: inline-block;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-right: 8px;
+    }
+    
+    .suggestion-item:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+
+ <header style="background-color: #f0f0f0;">激素排毒俱乐部 ｜科学排毒，健康自然瘦</header>
+
+  <nav>
+    <div class="dropdown" id="hormone-dropdown">
+      <button class="dropbtn" id="dropbtn"><i class="fas fa-dna"></i> 激素减脂入门</button>
+      <div class="dropdown-content" id="dropdown-content">
+        <div><div class="submenu-toggle" id="base-toggle">激素科普</div>
+          <div class="submenu-content" id="base-submenu">
+            <a href="https://sandy-long.github.io/lean-yds/" target="_blank"><i class="fas fa-vial"></i> 储脂激素（胰岛素）</a> 
+         
+		  <a href="https://sandy-long.github.io/lean-cortisol/" target="_blank">
+    <i class="fas fa-brain"></i> 压力激素（皮质醇）
+            <a href="https://sandy-long.github.io/lean-leptin/" target="_blank"><i class="fas fa-utensils"></i> 饱腹激素（瘦素）</a> 
+            <a href="https://sandy-long.github.io/lean-Glucagon/" target="_blank"><i class="fas fa-fire"></i> 燃脂激素（胰高血糖素）</a> 
+            <a href="https://sandy-long.github.io/lean-T/" target="_blank"><i class="fas fa-bolt"></i> 光源素（甲状腺激素）</a> 
+            <a href="https://sandy-long.github.io/lean-GH/" target="_blank"><i class="fas fa-moon"></i> 夜间修复与生长（生长激素）</a> 
+            <a href="https://sandy-long.github.io/lean-female-hormone/" target="_blank"><i class="fas fa-venus"></i> 青春激素（雌激素）</a> 
+            <a href="https://sandy-long.github.io/lean-male-hormone/" target="_blank"><i class="fas fa-mars"></i> 力量激素（雄激素）</a> 
+            <a href="https://sandy-long.github.io/lean-GLP-1/" target="_blank"><i class="fas fa-pills"></i> 轻饱激素（GLP-1，胰高糖素样肽-1）</a> 
+            <a href="https://sandy-long.github.io/lean-noradrenalin/" target="_blank"><i class="fas fa-brain"></i> 警觉激素（去甲肾上腺素）</a> 
+            <a href="https://sandy-long.github.io/lean-FSH/" target="_blank"><i class="fas fa-egg"></i> 促卵泡激素（FSH）</a>
+            <a href="https://sandy-long.github.io/lean-LH/" target="_blank"><i class="fas fa-seedling"></i> 黄体生成素（LH）</a>
+            <a href="https://sandy-long.github.io/lean-seronine/" target="_blank"><i class="fas fa-smile"></i> 血清素</a> 
+            <a href="https://sandy-long.github.io/lean-dba/" target="_blank"><i class="fas fa-laugh-beam"></i> 多巴胺</a> 
+            <a href="https://sandy-long.github.io/lean-NFT/" target="_blank"><i class="fas fa-brain"></i> 脑内肽</a> 
+            <a href="https://sandy-long.github.io/lean-ccs/" target="_blank"><i class="fas fa-heart"></i> 催产素</a> 
+          </div>
+        </div>
+        <div><div class="submenu-toggle" id="myth-toggle">血糖-胰岛素-细胞</div>
+          <div class="submenu-content" id="myth-submenu">
+            <a href="https://sandy-long.github.io/lean-Insulin-signaling/" target="_blank"><i class="fas fa-project-diagram"></i> 胰岛素信号通路比喻</a>  
+            <a href="https://sandy-long.github.io/lean-Glucose-cell-metabolism/" target="_blank"><i class="fas fa-atom"></i> 糖酵解和三羧酸循环</a>  
+            <a href="https://sandy-long.github.io/lean-liver-starch/" target="_blank"><i class="fas fa-liver"></i> 肝糖原合成及供能</a>  
+            <a href="https://sandy-long.github.io/lean-muscle-glycogen/" target="_blank"><i class="fas fa-dumbbell"></i> 肌糖原合成及供能</a>  
+            <a href="https://sandy-long.github.io/lean-ydssignal/" target="_blank"><i class="fas fa-chart-line"></i> 胰岛素影响代谢</a> 
+            <a href="https://sandy-long.github.io/lean-liverfat/" target="_blank"><i class="fas fa-weight"></i> 脂肪肝的形成</a> 
+            <a href="https://sandy-long.github.io/lean-fructose/" target="_blank"><i class="fas fa-apple-alt"></i> 果糖在肝脏代谢</a> 
+            <a href="https://sandy-long.github.io/lean-alcohol/" target="_blank"><i class="fas fa-wine-glass-alt"></i> 酒精在肝脏代谢</a> 
+            <a href="https://sandy-long.github.io/lean-free-radical/" target="_blank"><i class="fas fa-bed"></i> 长期失眠或慢性压力加速衰老机制</a>
+            <a href="https://sandy-long.github.io/lean-Highsugar-inflammation/" target="_blank"><i class="fas fa-burn"></i> 高糖导致炎症</a>
+            <a href="#"><i class="fas fa-question"></i> 为什么节食反而胖？</a>
+            <a href="#"><i class="fas fa-moon"></i> 熬夜真的让你吃不饱？</a>
+            <a href="#"><i class="fas fa-running"></i> 有氧运动=最佳燃脂方式吗？</a>
+          </div>
+        </div>
+        <div>
+          <div class="submenu-toggle" id="pre-toggle">胰岛素抵抗</div>
+          <div class="submenu-content" id="pre-submenu">
+            <a href="#"><i class="fas fa-chart-pie"></i> 减脂原理一图看懂</a>
+            <a href="#"><i class="fas fa-balance-scale"></i> 激素调节对减脂的影响</a>
+            <a href="#"><i class="fas fa-question-circle"></i> 你该先调节激素还是先运动？</a>
+            <a href="#"><i class="fas fa-fire"></i> 激活燃脂激素</a>
+            <a href="#"><i class="fas fa-utensils"></i> 告别暴食</a>
+            <a href="#"><i class="fas fa-weight"></i> 支持瘦素和代谢</a>
+            <a href="#"><i class="fas fa-stress"></i> 调节皮质醇</a>
+            <a href="https://sandy-long.github.io/lean-yddk/" target="_blank"><i class="fas fa-tint"></i> 胰岛素抵抗·血糖</a>
+            <a href="https://sandy-long.github.io/lean-yddkfat/" target="_blank"><i class="fas fa-weight"></i> 胰岛素抵抗·脂肪</a>
+            <a href="https://sandy-long.github.io/lean-yddkliver/" target="_blank"><i class="fas fa-liver"></i> 胰岛素抵抗·肝脏</a>
+            <a href="https://sandy-long.github.io/lean-yddk-muscle/" target="_blank"><i class="fas fa-dumbbell"></i> 胰岛素抵抗·肌肉</a>
+            <a href="https://sandy-long.github.io/lean-yddkbrain//" target="_blank"><i class="fas fa-brain"></i> 胰岛素抵抗·大脑</a>
+          </div>
+        </div> 
+      </div> 
+    </div>
+    
+    <div class="dropdown" id="diet-dropdown">
+      <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>   
+      <div class="dropdown-content" id="diet-submenu">
+        <div class="submenu-toggle" id="nutrition-toggle">
+          营养食物
+          <span class="double-arrows"></span>
+        </div>
+        <div class="submenu-content" id="nutrition-submenu">
+          <a href="https://sandy-long.github.io/lean-protein/" target="_blank">
+            <i class="fas fa-egg"></i> 蛋白质的重要性
+          </a>
+          <a href="https://sandy-long.github.io/lean-fatfood/" target="_blank">
+            <i class="fas fa-tint"></i> 认识食用油脂
+          </a>
+          <a href="https://sandy-long.github.io/lean-Carbohydrates/" target="_blank">
+            <i class="fas fa-bowl-food"></i> 优质碳水
+          </a>
+          <a href="#">
+            <i class="fas fa-apple-alt"></i> 饱腹感饮食
+          </a>
+          <a href="https://sandy-long.github.io/lean-Inflamed-food/" target="_blank">
+            <i class="fas fa-ban"></i> 常见发炎食物
+          </a>
+        </div>
+
+        <a href="https://sandy-long.github.io/lean-OMAD/" target="_blank">
+          <i class="fas fa-clock"></i> 每日一餐指南
+        </a>
+        <a href="#">
+          <i class="fas fa-hourglass-half"></i> 轻断食
+        </a>
+        <a href="#">
+          <i class="fas fa-balance-scale"></i> "不节食也能瘦"原则
+        </a>
+      </div>
+    </div>
+
+    <div class="dropdown" id="lifestyle-dropdown">
+      <button class="dropbtn"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</button>
+      <div class="dropdown-content" id="lifestyle-submenu">
+        <div class="submenu-toggle" id="sleep-toggle">
+          睡眠
+          <span class="submenu-arrow">▸</span>
+        </div>
+        <div class="submenu-content" id="sleep-submenu">
+          <a href="https://sandy-long.github.io/lean-sleepclass/" target="_blank">
+            <i class="fas fa-brain"></i> 睡不着的原因
+          </a>
+        </div>
+        
+        <div class="submenu-toggle" id="emotion-toggle">
+          情绪
+          <span class="submenu-arrow">▸</span>
+        </div>
+        <div class="submenu-content" id="emotion-submenu">
+          <a href="https://sandy-long.github.io/lean-happiness/" target="_blank">
+            <i class="fas fa-face-laugh-squint"></i> 激活快乐
+          </a>
+          <a href="#">
+            <i class="fas fa-heartbeat"></i> 情绪性进食与激素波动
+          </a>
+          <a href="#">
+            <i class="fas fa-head-side-virus"></i> 压力管理技巧
+          </a>
+        </div>
+        
+        <div class="submenu-toggle" id="exercise-toggle">
+          运动
+          <span class="submenu-arrow">▸</span>
+        </div>
+        <div class="submenu-content" id="exercise-submenu">
+          <a href="https://sandy-long.github.io/lean-Elastic-training/" target="_blank">
+            <i class="fas fa-person-walking"></i> 弹性训练
+          </a>
+          <a href="https://sandy-long.github.io/lean-ydsdkact/" target="_blank">
+            <i class="fas fa-person-biking"></i> 胰岛素抵抗运动
+          </a>
+          <a href="#">
+            <i class="fas fa-running"></i> 适合激素紊乱人群的运动
+          </a>
+          <a href="#">
+            <i class="fas fa-clock"></i> 运动时间与激素分泌
+          </a>
+          <a href="#">
+            <i class="fas fa-walking"></i> 低强度运动的好处
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown" id="tools-dropdown">
+      <button class="dropbtn"><i class="fas fa-tools"></i> 免费工具</button>
+      <div class="dropdown-content" id="tools-submenu">
+        <a href="#"><i class="fas fa-file-pdf"></i> 一周激素平衡饮食计划（PDF）</a>
+        <a href="#"><i class="fas fa-table"></i> 代谢/胰岛素/瘦素测试表（Notion）</a>
+        <a href="#"><i class="fas fa-list"></i> 高饱腹感食物列表</a>
+      </div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="搜索内容..." id="searchInput">
+      <button class="search-button" id="searchButton"><i class="fas fa-search"></i></button>
+      <div class="search-results" id="searchResults">
+        <div class="search-suggestions">
+          <div class="suggestion-title">常用搜索:</div>
+          <div class="suggestion-item" data-query="蛋白质">蛋白质</div>
+          <div class="suggestion-item" data-query="睡眠">睡眠</div>
+          <div class="suggestion-item" data-query="胰岛素">胰岛素</div>
+          <div class="suggestion-item" data-query="皮质醇">皮质醇</div>
+          <div class="suggestion-item" data-query="瘦素">瘦素</div>
+        </div>
+        <div class="search-results-container"></div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="image-showcase">
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%9A%E5%9B%8A.jpg" alt="多囊" />
+    <a href="https://sandy-long.github.io/fat-reason/" target="_blank">
+      <img 
+        src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E5%A4%A7%E8%82%9A%E5%AD%90.jpg" 
+        alt="大肚子"
+        onclick="openImageModal(this.src)" 
+        style="cursor: zoom-in;" 
+      />
+    </a>
+    <img src="https://raw.githubusercontent.com/Sandy-long/My-picture/main/%E7%97%9B%E9%A3%8E.jpg" alt="痛风" />
+  </section>
+<div class="card">
+<div class="services-container">
+    <div class="services-intro">
+	<div class="services-intro">
+      <h2>激素排毒俱乐部分析并总结近期医学研究，结合专业让您的生活方式无痛修正</h2>
+      <p>了解如何科学使用我们的方案</p>
+    </div>
+    <div class="services-grid">
+      <a href="#" class="service-card">
+        <div class="service-icon"><i class="fas fa-clipboard-list"></i></div>
+        <h3 class="service-title">个性化方案</h3>
+        <p class="service-desc">根据检测结果定制饮食、运动、睡眠综合方案</p>
+        <span class="service-link">查看案例</span>
+		<span class="service-link">咨询了解</span>
+      </a>
+    </div>
+</div>
+</div>
+
+ <footer id="footer">
+  © <span id="year"></span> 激素排毒俱乐部. 版权所有
+</footer>
+
+<div id="imageModal">
+  <img id="modalImage" alt="放大图片">
+</div>
+
+<script>
+  // 关键词跳转映射表 - 包含首字母匹配
+  const keywordRedirects = {
+    // 睡眠相关
+    '睡': 'https://sandy-long.github.io/lean-sleepclass/',
+    '失眠': 'https://sandy-long.github.io/lean-sleepclass/',
+    '睡不着': 'https://sandy-long.github.io/lean-sleepclass/',
+    '睡眠': 'https://sandy-long.github.io/lean-sleepclass/',
+    '熬夜': 'https://sandy-long.github.io/lean-sleepclass/',
+  'sleep': 'https://sandy-long.github.io/lean-sleepclass/',
+    
+    // 蛋白质相关
+    '蛋白质': 'https://sandy-long.github.io/lean-protein/',
+    '蛋白': 'https://sandy-long.github.io/lean-protein/',
+    'protein': 'https://sandy-long.github.io/lean-protein/',
+    '氨基酸': 'https://sandy-long.github.io/lean-protein/',
+    '蛋': 'https://sandy-long.github.io/lean-protein/', 
+    
+    // 胰岛素相关
+    '胰岛素': 'https://sandy-long.github.io/lean-yds/',
+    'insulin': 'https://sandy-long.github.io/lean-yds/',
+    '血糖': 'https://sandy-long.github.io/lean-yds/',
+ 
+    
+    // 皮质醇相关
+    '皮质醇': 'https://sandy-long.github.io/lean-cortisol/',
+    '压力': 'https://sandy-long.github.io/lean-cortisol/',
+    'stress': 'https://sandy-long.github.io/lean-cortisol/',
+    '皮': 'https://sandy-long.github.io/lean-cortisol/', 
+ 
+    
+    // 瘦素相关
+    '瘦素': 'https://sandy-long.github.io/lean-leptin/',
+    'leptin': 'https://sandy-long.github.io/lean-leptin/',
+    '饱腹感': 'https://sandy-long.github.io/lean-leptin/',
+    '瘦': 'https://sandy-long.github.io/lean-leptin/', 
+	
+	 // 肝脏相关
+    '肝脏': 'https://sandy-long.github.io/lean-yddkliver/',
+	'肝脏': 'https://sandy-long.github.io/lean-liverfat/',
+	
+
+    
+    
+    // 其他关键词可以继续添加...
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // 主菜单切换
+    document.querySelectorAll('.dropbtn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const dropdown = this.nextElementSibling;
+        
+        // 关闭其他打开的下拉菜单
+        document.querySelectorAll('.dropdown-content').forEach(d => {
+          if (d !== dropdown) d.classList.remove('show');
+        });
+        
+        // 切换当前下拉菜单
+        dropdown.classList.toggle('show');
+      });
+    });
+
+    // 子菜单切换
+    document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const submenu = this.nextElementSibling;
+        
+        // 关闭其他打开的子菜单
+        document.querySelectorAll('.submenu-content').forEach(s => {
+          if (s !== submenu) s.classList.remove('show');
+        });
+        
+        // 切换当前子菜单
+        submenu.classList.toggle('show');
+        this.classList.toggle('active');
+      });
+    });
+
+    // 点击页面其他区域关闭所有菜单
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.dropdown-content, .submenu-content').forEach(menu => {
+        menu.classList.remove('show');
+      });
+      document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+        toggle.classList.remove('active');
+      });
+      document.getElementById('searchResults').style.display = 'none';
+    });
+
+    // 防止菜单内部点击事件冒泡
+    document.querySelectorAll('.dropdown-content, .submenu-content').forEach(menu => {
+      menu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+
+    // 图片模态框功能
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('modalImage');
+      img.src = src;
+      modal.style.display = 'flex';
+    }
+
+    document.getElementById('imageModal').addEventListener('click', function() {
+      this.style.display = 'none';
+    });
+
+    // 设置年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 搜索功能实现
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const searchResults = document.getElementById('searchResults');
+    const resultsContainer = document.querySelector('.search-results-container');
+
+    // 收集所有可搜索的内容
+    function collectSearchableContent() {
+      const elements = document.querySelectorAll('h1, h2, h3, h4, p, a, li, span, .service-title, .service-desc');
+      const content = [];
+      
+      elements.forEach(el => {
+        if (el.textContent.trim() && !el.classList.contains('search-button') && !el.classList.contains('dropbtn')) {
+          content.push({
+            text: el.textContent.trim(),
+            element: el
+          });
+        }
+      });
+      
+      return content;
+    }
+
+    // 执行搜索
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        alert('请输入搜索内容');
+        return;
+      }
+
+      // 检查是否有匹配的关键词或首字母
+      for (const [keyword, url] of Object.entries(keywordRedirects)) {
+        // 完全匹配或首字母匹配
+        if (query === keyword.toLowerCase() || 
+            (keyword.length === 1 && query.startsWith(keyword.toLowerCase()))) {
+          window.location.href = url;
+          return; // 匹配到就跳转，不再继续
+        }
+      }
+
+      // 如果没有关键词匹配，执行普通搜索
+      const searchableContent = collectSearchableContent();
+      const results = searchableContent.filter(item =>
+        item.text.toLowerCase().includes(query)
+      );
+
+      displayResults(results, query);
+    }
+
+    // 显示搜索结果
+    function displayResults(results, query) {
+      resultsContainer.innerHTML = '';
+      
+      if (results.length === 0) {
+        resultsContainer.innerHTML = '<div class="search-result-item">未找到相关结果</div>';
+      } else {
+        results.slice(0, 10).forEach(result => {
+          const resultItem = document.createElement('div');
+          resultItem.className = 'search-result-item';
+
+          // 高亮显示匹配的文本
+          const highlightedText = result.text.replace(
+            new RegExp(query, 'gi'),
+            match => `<span class="highlight">${match}</span>`
+          );
+
+          resultItem.innerHTML = `
+            <p>${highlightedText}</p>
+            <small>${result.element.tagName.toLowerCase()}</small>
+          `;
+
+          // 点击结果跳转到对应元素位置
+          resultItem.addEventListener('click', () => {
+            result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            searchResults.style.display = 'none';
+          });
+
+          resultsContainer.appendChild(resultItem);
+        });
+      }
+
+      searchResults.style.display = 'block';
+    }
+
+    // 搜索按钮点击事件
+    searchButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      performSearch();
+    });
+
+    // 输入框回车事件
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        performSearch();
+      }
+    });
+
+    // 点击搜索框时不关闭搜索结果
+    searchInput.addEventListener('click', function(e) {
+      e.stopPropagation();
+      searchResults.style.display = 'block';
+    });
+
+    // 点击搜索建议项
+    document.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('click', function() {
+        searchInput.value = this.getAttribute('data-query');
+        performSearch();
+      });
+    });
+
+    // 图片点击放大
+    document.querySelectorAll('.image-showcase img').forEach(img => {
+      if (!img.parentElement.tagName === 'A') {
+        img.addEventListener('click', function() {
+          openImageModal(this.src);
+        });
+        img.style.cursor = 'zoom-in';
+      }
+    });
+  });
+  
+</script>
+</body>
+</html>

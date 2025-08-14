@@ -100,9 +100,14 @@
       color: #333;
       padding: 0;
     }
-    .dropdown-content.show {
-      display: block;
-    }
+	
+	.dropdown-content, .submenu-content {
+  display: none;
+}
+    .dropdown-content.show,
+.submenu-content.show {
+  display: block;
+}
     .dropdown-content > a {
       display: block;
       padding: 12px 18px;
@@ -459,49 +464,64 @@
       </div> 
     </div>
     
-    <div class="dropdown" id="diet-dropdown">
-      <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>   
-      <div class="dropdown-content" id="diet-submenu">
-        <div class="submenu-toggle" id="nutrition-toggle">
-          营养食物
-          <span class="double-arrows"></span>
-        </div>
-        <div class="submenu-content" id="nutrition-submenu">
-          <a href="https://sandy-long.github.io/lean-protein/" target="_blank">
-            <i class="fas fa-egg"></i> 蛋白质的重要性
-          </a>
-          <a href="https://sandy-long.github.io/lean-fatfood/" target="_blank">
-            <i class="fas fa-tint"></i> 认识食用油脂
-          </a>
-          <a href="https://sandy-long.github.io/lean-Carbohydrates/" target="_blank">
-            <i class="fas fa-bowl-food"></i> 优质碳水
-          </a>
-          <a href="#">
-            <i class="fas fa-apple-alt"></i> 饱腹感饮食
-          </a>
-          <a href="https://sandy-long.github.io/lean-Inflamed-food/" target="_blank">
-            <i class="fas fa-ban"></i> 常见发炎食物
-          </a>
-        </div>
+<div class="dropdown" id="diet-dropdown">
+  <button class="dropbtn" id="diet-btn"><i class="fas fa-utensils"></i> 饮食计划</button>   
+  <div class="dropdown-content" id="diet-submenu">
+    <!-- 营养食物 -->
+    <div class="submenu-toggle">
+      营养食物
+      <span class="double-arrows"></span>
+    </div>
+    <div class="submenu-content">
+      <a href="https://sandy-long.github.io/lean-protein/" target="_blank">
+        <i class="fas fa-egg"></i> 蛋白质的重要性
+      </a>
+      <a href="https://sandy-long.github.io/lean-fatfood/" target="_blank">
+        <i class="fas fa-tint"></i> 认识食用油脂
+      </a>
+      <a href="https://sandy-long.github.io/lean-Carbohydrates/" target="_blank">
+        <i class="fas fa-bowl-food"></i> 优质碳水
+      </a>
 
-        <a href="https://sandy-long.github.io/lean-OMAD/" target="_blank">
-         每日一餐
+      <!-- 维矿（三级菜单） -->
+      <div class="submenu-toggle" style="margin-left: 10px;">
+        维矿
+        <span class="double-arrows"></span>
+      </div>
+      <div class="submenu-content" style="margin-left: 20px;">
+        <a href="https://sandy-long.github.io/nutri/" target="_blank">
+          <i class="fas fa-capsules"></i> 减脂
         </a>
-        <a href="https://sandy-long.github.io/fast/" target="_blank">
-         轻断食
+        <a href="https://sandy-long.github.io/nus/" target="_blank">
+          <i class="fas fa-capsules"></i> 睡眠
         </a>
-           <a href="https://sandy-long.github.io/lean/" target="_blank">
-          不节食也能瘦
+        <a href="https://sandy-long.github.io/numo/" target="_blank">
+          <i class="fas fa-capsules"></i> 运动
+        </a>
+        <a href="https://sandy-long.github.io/nustr/" target="_blank">
+          <i class="fas fa-capsules"></i> 情绪
         </a>
       </div>
+
+      <a href="https://sandy-long.github.io/lean-Inflamed-food/" target="_blank">
+        <i class="fas fa-ban"></i> 常见发炎食物
+      </a>
     </div>
+
+    <!-- 其他饮食计划 -->
+    <a href="https://sandy-long.github.io/lean-OMAD/" target="_blank">每日一餐</a>
+    <a href="https://sandy-long.github.io/fast/" target="_blank">轻断食</a>
+    <a href="https://sandy-long.github.io/lean/" target="_blank">不节食也能瘦</a>
+    <a href="#"><i class="fas fa-apple-alt"></i> 饱腹感饮食</a>
+  </div>
+</div>
 
     <div class="dropdown" id="lifestyle-dropdown">
       <button class="dropbtn"><i class="fas fa-bed"></i> 睡眠＋情绪＋运动</button>
       <div class="dropdown-content" id="lifestyle-submenu">
         <div class="submenu-toggle" id="sleep-toggle">
           睡眠
-          <span class="submenu-arrow">▸</span>
+          <span class="submenu-arrow"></span>
         </div>
         <div class="submenu-content" id="sleep-submenu">
           <a href="https://sandy-long.github.io/lean-sleepclass/" target="_blank">
@@ -514,7 +534,7 @@
         
         <div class="submenu-toggle" id="emotion-toggle">
           情绪
-          <span class="submenu-arrow">▸</span>
+          <span class="submenu-arrow"></span>
         </div>
         <div class="submenu-content" id="emotion-submenu">
           <a href="https://sandy-long.github.io/lean-happiness/" target="_blank">
@@ -530,7 +550,7 @@
         
         <div class="submenu-toggle" id="exercise-toggle">
           运动
-          <span class="submenu-arrow">▸</span>
+          <span class="submenu-arrow"></span>
         </div>
         <div class="submenu-content" id="exercise-submenu">
           <a href="https://sandy-long.github.io/lean-Elastic-training/" target="_blank">
@@ -725,182 +745,48 @@
     // 其他关键词可以继续添加...
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // 主菜单切换
-    document.querySelectorAll('.dropbtn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const dropdown = this.nextElementSibling;
-        
-        // 关闭其他打开的下拉菜单
-        document.querySelectorAll('.dropdown-content').forEach(d => {
-          if (d !== dropdown) d.classList.remove('show');
-        });
-        
-        // 切换当前下拉菜单
-        dropdown.classList.toggle('show');
-      });
-    });
-
-    // 子菜单切换
-    document.querySelectorAll('.submenu-toggle').forEach(toggle => {
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const submenu = this.nextElementSibling;
-        
-        // 关闭其他打开的子菜单
-        document.querySelectorAll('.submenu-content').forEach(s => {
-          if (s !== submenu) s.classList.remove('show');
-        });
-        
-        // 切换当前子菜单
-        submenu.classList.toggle('show');
-        this.classList.toggle('active');
-      });
-    });
-
-    // 点击页面其他区域关闭所有菜单
-    document.addEventListener('click', function() {
-      document.querySelectorAll('.dropdown-content, .submenu-content').forEach(menu => {
-        menu.classList.remove('show');
-      });
-      document.querySelectorAll('.submenu-toggle').forEach(toggle => {
-        toggle.classList.remove('active');
-      });
-      document.getElementById('searchResults').style.display = 'none';
-    });
-
-    // 防止菜单内部点击事件冒泡
-    document.querySelectorAll('.dropdown-content, .submenu-content').forEach(menu => {
-      menu.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-    });
-
-    // 图片模态框功能
-    function openImageModal(src) {
-      const modal = document.getElementById('imageModal');
-      const img = document.getElementById('modalImage');
-      img.src = src;
-      modal.style.display = 'flex';
-    }
-
-    document.getElementById('imageModal').addEventListener('click', function() {
-      this.style.display = 'none';
-    });
-
-    // 设置年份
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // 搜索功能实现
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
-    const searchResults = document.getElementById('searchResults');
-    const resultsContainer = document.querySelector('.search-results-container');
-
-    // 执行搜索
-    function performSearch() {
-      const query = searchInput.value.trim().toLowerCase();
-      if (!query) {
-        alert('请输入搜索内容');
-        return;
-      }
-
-      // 检查是否有匹配的关键词或首字母
-      for (const [keyword, url] of Object.entries(keywordRedirects)) {
-        // 完全匹配或首字母匹配
-        if (query === keyword.toLowerCase() || 
-            (keyword.length === 1 && query.startsWith(keyword.toLowerCase()))) {
-          window.location.href = url;
-          return; // 匹配到就跳转，不再继续
-        }
-      }
-
-      // 如果没有关键词匹配，搜索预定义索引
-      const results = searchIndex.filter(item =>
-        item.title.toLowerCase().includes(query) || 
-        item.content.toLowerCase().includes(query)
-      );
-
-      displayResults(results, query);
-    }
-
-    // 显示搜索结果
-    function displayResults(results, query) {
-      resultsContainer.innerHTML = '';
-      
-      if (results.length === 0) {
-        resultsContainer.innerHTML = '<div class="search-result-item">未找到相关结果</div>';
-      } else {
-        results.slice(0, 10).forEach(result => {
-          const resultItem = document.createElement('div');
-          resultItem.className = 'search-result-item';
-
-          // 高亮显示匹配的文本
-          const highlightedTitle = result.title.replace(
-            new RegExp(query, 'gi'),
-            match => `<span class="highlight">${match}</span>`
-          );
-          
-          const highlightedContent = result.content.substring(0, 100).replace(
-            new RegExp(query, 'gi'),
-            match => `<span class="highlight">${match}</span>`
-          );
-
-          resultItem.innerHTML = `
-            <h4>${highlightedTitle}</h4>
-            <p>${highlightedContent}...</p>
-          `;
-          
-          resultItem.addEventListener('click', () => {
-            window.location.href = result.url;
-          });
-          
-          resultsContainer.appendChild(resultItem);
-        });
-      }
-      
-      searchResults.style.display = 'block';
-    }
-
-    // 搜索按钮点击事件
-    searchButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      performSearch();
-    });
-
-    // 输入框回车事件
-    searchInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        performSearch();
-      }
-    });
-
-    // 点击搜索框时不关闭搜索结果
-    searchInput.addEventListener('click', function(e) {
+ document.addEventListener('DOMContentLoaded', function () {
+  // 主菜单切换
+  document.querySelectorAll('.dropbtn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
       e.stopPropagation();
-      searchResults.style.display = 'block';
-    });
+      const dropdown = this.nextElementSibling;
 
-    // 点击搜索建议项
-    document.querySelectorAll('.suggestion-item').forEach(item => {
-      item.addEventListener('click', function() {
-        searchInput.value = this.getAttribute('data-query');
-        performSearch();
+      // 关闭其他打开的下拉菜单
+      document.querySelectorAll('.dropdown-content').forEach(d => {
+        if (d !== dropdown) d.classList.remove('show');
       });
-    });
 
-    // 图片点击放大
-    document.querySelectorAll('.image-showcase img').forEach(img => {
-      if (!img.parentElement.tagName === 'A') {
-        img.addEventListener('click', function() {
-          openImageModal(this.src);
-        });
-        img.style.cursor = 'zoom-in';
-      }
+      dropdown.classList.toggle('show');
     });
   });
+
+  // 子菜单切换（支持多级）
+  document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const submenu = this.nextElementSibling;
+
+      // 关闭同级其他子菜单
+      this.parentElement.querySelectorAll('.submenu-content').forEach(s => {
+        if (s !== submenu) s.classList.remove('show');
+      });
+
+      submenu.classList.toggle('show');
+      this.classList.toggle('active');
+    });
+  });
+
+  // 点击空白区域关闭所有菜单
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.dropdown-content, .submenu-content').forEach(menu => {
+      menu.classList.remove('show');
+    });
+    document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+      toggle.classList.remove('active');
+    });
+  });
+});
 </script>
 </body>
 </html>
